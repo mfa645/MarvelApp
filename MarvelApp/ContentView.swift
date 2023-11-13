@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var coordinator: Coordinator
+    @State private var showOnboarding = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView{
+            coordinator.makeSearchView()
+                .tabItem{
+                    Label("Search",systemImage: "magnifyingglass")
+                }
         }
-        .padding()
     }
 }
-
 #Preview {
     ContentView()
 }

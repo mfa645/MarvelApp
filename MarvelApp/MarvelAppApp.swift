@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct MarvelAppApp: App {
+    let coordinator = Coordinator()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(coordinator)
         }
     }
 }
