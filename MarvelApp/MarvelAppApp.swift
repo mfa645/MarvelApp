@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct MarvelAppApp: App {
-    let coordinator = Coordinator()
+    let coordinator = Coordinator(mock: true)
     var body: some Scene {
         WindowGroup {
             ContentView().environmentObject(coordinator)

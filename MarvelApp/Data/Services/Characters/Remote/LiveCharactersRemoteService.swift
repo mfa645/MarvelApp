@@ -7,6 +7,7 @@
 
 import Foundation
 struct LiveCharactersRemoteService: CharactersRemoteService {
+
     private let networkClient: NetworkClient
     
     private let ts = "1"
@@ -22,4 +23,10 @@ struct LiveCharactersRemoteService: CharactersRemoteService {
         let response: APIResponse<Character> = try await networkClient.get(url: "http://gateway.marvel.com/v1/public/characters?ts=\(ts)&apikey=\(apikey)&hash=\(hash)")
         return response.data.results
     }
+    
+    func getFilteredCharacters(name: String) async throws -> [Character] {
+        let response: APIResponse<Character> = try await networkClient.get(url: "http://gateway.marvel.com/v1/public/characters?nameStartsWith=\(name)&ts=\(ts)&apikey=\(apikey)&hash=\(hash)")
+        return response.data.results
+    }
+    
 }

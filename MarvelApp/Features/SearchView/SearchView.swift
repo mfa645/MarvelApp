@@ -9,24 +9,42 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject private var viewModel: SearchViewModel
+    @State private var stringFilter: String = ""
     @EnvironmentObject var coordinator: Coordinator
     
     init(viewModel: SearchViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-
+    
     @State private var selected = SearchTypeFilters.characters.rawValue
     var body: some View {
-        VStack(){
-            CustomSegmentedPicker<SearchTypeFilters>(sourcesEnum: SearchTypeFilters.self, selection: $selected)
-            
-            MostPopularCharactersView(characters: viewModel.characters)
-            .task {
-               await viewModel.getCharacters()
+        NavigationStack {
+            VStack(spacing:30){
+                CustomSegmentedPicker<SearchTypeFilters>(sourcesEnum: SearchTypeFilters.self, selection: $selected)
+                
+                MostPopularCharactersView(characters: viewModel.characters)
+                    .task {
+                        await viewModel.getCharacters()
+                    }
+                VStack{
+                    CustomSearchBar(
+                        searchFilter: $stringFilter,
+                        searchPlaceholder: "Search all Characters",
+                        onCancelClicked: {stringFilter = ""}
+                    )
+                    .padding()
+                    List{
+                        ForEach(viewModel.characters,id: \.id ) { character in
+                            NavigationLink(destination: CharacterDetailView(character: character)){
+                                Text(character.name)
+                            }
+                        }.listRowBackground(Color(.marvelSecondary))
+                    }
+                    .listStyle(.plain)
+                    .padding(.bottom)
+                }.background(.marvelSecondary)
+                
             }
-            .padding(/*@START_MENU_TOKEN@*/EdgeInsets()/*@END_MENU_TOKEN@*/)
-            Spacer()
-           
         }
     }
 }

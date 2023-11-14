@@ -8,4 +8,5 @@
 import Foundation
 protocol CharactersRemoteService {
     func getCharacters() async throws -> [Character]
+    func getFilteredCharacters(name:String) async throws -> [Character]
 }

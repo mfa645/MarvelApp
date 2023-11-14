@@ -6,12 +6,9 @@
 //
 
 import SwiftUI
-
 struct MostPopularCharactersView: View {
     @EnvironmentObject var coordinator: Coordinator
     let characters: [Character]
-
-    
     init(characters: [Character]) {
         self.characters = characters
     }
@@ -25,15 +22,15 @@ struct MostPopularCharactersView: View {
                             AsyncImage(
                                 url: URL(string: "\(character.image.path).\(character.image.extensionType)")
                             ){image in
-                                image.image?.resizable().scaledToFit()
+                                image.image?.resizable().scaledToFill()
                             }.clipShape(Circle())
-                                .frame(width: 100,height: 100)                          
+                                .frame(width: 100,height: 100)
                             Text(character.name)
                         }.padding()
                     }
                 }
             }
-        }.frame(height: 200)
+        }.frame(height: 150)
     }
 }
 

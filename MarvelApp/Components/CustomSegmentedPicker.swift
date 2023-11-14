@@ -14,6 +14,7 @@ struct CustomSegmentedPicker<T: CaseIterable & Hashable> : View where T.AllCases
         Picker("", selection: selection) {
             ForEach(sourcesEnum.allCases, id:\.self){source in
                 Text(String(describing: source).uppercased()).tag(String(describing: source).uppercased())
+                    .font(.title)
                     .background(.red)
             }
         }
