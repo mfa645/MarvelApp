@@ -9,9 +9,6 @@ import SwiftUI
 
 import SwiftUI
 struct PopularItemsView<Item: Identifiable, Destination:View, ItemView:View>: View {
-    
-    @EnvironmentObject var coordinator: Coordinator
-    
     let items: [Item]
     let navigationDestination: (Item) -> Destination
     let itemView: (Item) -> ItemView
@@ -21,7 +18,6 @@ struct PopularItemsView<Item: Identifiable, Destination:View, ItemView:View>: Vi
         self.navigationDestination = navigationDestination
         self.itemView = itemView
     }
-    
     var body: some View {
         NavigationStack{
             ScrollView(.horizontal){
@@ -33,18 +29,20 @@ struct PopularItemsView<Item: Identifiable, Destination:View, ItemView:View>: Vi
                             itemView(item)
                                 .tint(.marvelPrimary)
                         }
-
+                        
                     }
                 }
-            }.frame(height: 150)
+                .frame(height: 200)
+                .padding(.bottom)
+            }
         }
     }
 }
 #Preview {
-    MostPopularComicsView(items: [Character.example]) { character in
-        CharacterDetailView(character: character)
-    } itemView: { character in
-        PopularItemView(title: Character.example.name, imageUrl: Character.example.imageUrl)
+    PopularItemsView(items: [Serie.example]) { serie in
+        SerieDetailView(serie: serie)
+    } itemView: { serie in
+        PopularItemView(title: serie.title, imageUrl: serie.imageUrl)
     }
     
 }

@@ -20,7 +20,7 @@ struct MostPopularCharactersView: View {
                     ForEach(characters) { character in
                         VStack{
                             AsyncImage(
-                                url: URL(string: character.imageURL)
+                                url: URL(string: character.imageUrl)
                             ){image in
                                 image.image?.resizable().scaledToFill()
                             }.clipShape(Circle())

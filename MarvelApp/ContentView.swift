@@ -20,5 +20,6 @@ struct ContentView: View {
     }
 }
 #Preview {
-    ContentView()
+    let coordinator = Coordinator(mock: false)
+    return ContentView().environmentObject(coordinator)
 }

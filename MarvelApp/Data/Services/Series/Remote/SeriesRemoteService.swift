@@ -6,3 +6,7 @@
 //
 
 import Foundation
+protocol SeriesRemoteService {
+    func getSeries() async throws -> [Serie]
+    func getFilteredSeries(title:String) async throws -> [Serie]
+}

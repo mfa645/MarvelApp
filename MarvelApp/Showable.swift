@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+protocol Showable{
+    var id : Int {get set}
+    var image : String{get set}
+    var name : String{get set}
+    
+}

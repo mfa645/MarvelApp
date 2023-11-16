@@ -17,4 +17,9 @@ struct CharactersRepository {
     func getCharacters() async throws -> [Character] {
         try await remoteService.getCharacters()
     }
+        
+    func getFilteredCharacters(name : String) async throws -> [Character] {
+        try await remoteService.getFilteredCharacters(name: name)
+    }
+    
 }

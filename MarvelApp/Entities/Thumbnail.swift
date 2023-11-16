@@ -16,8 +16,7 @@ struct Thumbnail: Decodable{
     let path : String
     let extensionType : String
     
-    init(path: String, extensionType: String) {
-        self.path = "https" + path.dropFirst(4)
-        self.extensionType = extensionType
+    var url: String? {
+        return "https\(path.dropFirst(4)).\(extensionType)"
     }
 }

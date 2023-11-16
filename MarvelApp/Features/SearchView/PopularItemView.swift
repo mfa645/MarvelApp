@@ -8,11 +8,40 @@
 import SwiftUI
 
 struct PopularItemView: View {
+    let title : String
+    let imageUrl: String
+    var rounded : Bool = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .center){
+            AsyncImage(
+                url: URL(string: imageUrl)
+            ){image in
+                image.image?.resizable().scaledToFill().clipped()   }
+            .frame(maxWidth: 120,maxHeight: 180)
+            .if(rounded){view in
+                view.clipShape(.circle)
+            }
+            
+            Text(title)
+                .lineLimit(2, reservesSpace: true)
+                .multilineTextAlignment(.center)
+                .font(.headline).padding(.top)
+            Spacer()
+        }
+        .frame(width: 200,height: 200)
+        .padding()
     }
 }
 
 #Preview {
-    PopularItemView()
+    let serie = Serie.example
+    let comic = Comic.example
+    let character = Character.example
+    return ScrollView(.horizontal){
+        HStack{
+            PopularItemView(title: serie.title, imageUrl: serie.imageUrl)
+            PopularItemView(title: comic.title, imageUrl: "https://i.annihil.us/u/prod/marvel/i/mg/9/20/4bc665483c3aa.jpg")
+            PopularItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
+        }
+    }
 }

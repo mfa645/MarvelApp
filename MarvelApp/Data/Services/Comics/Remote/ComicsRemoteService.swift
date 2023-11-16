@@ -6,3 +6,7 @@
 //
 
 import Foundation
+protocol ComicsRemoteService {
+    func getComics() async throws -> [Comic]
+    func getFilteredComics(title:String) async throws -> [Comic]
+}

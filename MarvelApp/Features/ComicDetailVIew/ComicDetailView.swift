@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct ComicDetailVIEw: View {
+struct ComicDetailView: View {
+    let comic :  Comic
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    ComicDetailVIEw()
+    ComicDetailView(comic: .example)
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 struct MockComicsRemoteService: ComicsRemoteService {
-    func getFilteredComics(name: String) async throws -> [Comic] {
+    func getFilteredComics(title: String) async throws -> [Comic] {
         let comics : [Comic] =         [
             .init(
                 id: 1,
@@ -38,7 +38,7 @@ struct MockComicsRemoteService: ComicsRemoteService {
         ]
         
         return comics.filter{comic in
-            comic.name.starts(with: name)
+            comic.title.starts(with: title)
         }
     }
     

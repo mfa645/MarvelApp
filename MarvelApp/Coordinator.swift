@@ -8,12 +8,21 @@
 import Foundation
 class Coordinator: ObservableObject {
     private let charactersRepository: CharactersRepository
+    private let comicsRepository: ComicsRepository
+    private let seriesRepository: SeriesRepository
+
     
     init(mock: Bool = false) {
         let networkClient = URLSessionNetworkClient()
         
         let charactersRemoteService: CharactersRemoteService = mock ? MockCharactersRemoteService() : LiveCharactersRemoteService(networkClient: networkClient)
-        charactersRepository = CharactersRepository(remoteService: charactersRemoteService)
+        charactersRepository = CharactersRepository(remoteService: charactersRemoteService)        
+        
+        let comicsRemoteService: ComicsRemoteService = mock ? MockComicsRemoteService() : LiveComicsRemoteService(networkClient: networkClient)
+        comicsRepository = ComicsRepository(remoteService: comicsRemoteService)
+        
+        let seriesRemoteService: SeriesRemoteService = mock ? MockSeriesRemoteService() : LiveSeriesRemoteService(networkClient: networkClient)
+        seriesRepository = SeriesRepository(remoteService: seriesRemoteService)
     }
     
     //MARK: - SearchView
@@ -23,7 +32,11 @@ class Coordinator: ObservableObject {
     }
     
     private func makeSearchViewModel() -> SearchViewModel{
-        .init(charactersRepository: self.charactersRepository)
+        .init(
+            charactersRepository: self.charactersRepository,
+            comicsRepository: self.comicsRepository,
+            seriesRepository: self.seriesRepository
+        )
     }
     
 }
