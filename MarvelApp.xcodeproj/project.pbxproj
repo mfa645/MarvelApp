@@ -19,7 +19,6 @@
 		9A37E4812B052123002ACDC4 /* LiveSeriesRemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37E4802B052123002ACDC4 /* LiveSeriesRemoteService.swift */; };
 		9A37E48C2B052945002ACDC4 /* PopularItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37E48B2B052945002ACDC4 /* PopularItemView.swift */; };
 		9A37E48F2B052E22002ACDC4 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37E48E2B052E22002ACDC4 /* ViewExtensions.swift */; };
-		9A37E4912B05321D002ACDC4 /* Showable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37E4902B05321D002ACDC4 /* Showable.swift */; };
 		9A4050052B0667C30023C72F /* ComicDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4050042B0667C30023C72F /* ComicDetailView.swift */; };
 		9A4050072B0667E20023C72F /* SerieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4050062B0667E20023C72F /* SerieDetailView.swift */; };
 		9A4691E22B03F8AE00D196F5 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4691E12B03F8AE00D196F5 /* Comic.swift */; };
@@ -59,7 +58,6 @@
 		9A37E4802B052123002ACDC4 /* LiveSeriesRemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSeriesRemoteService.swift; sourceTree = "<group>"; };
 		9A37E48B2B052945002ACDC4 /* PopularItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularItemView.swift; sourceTree = "<group>"; };
 		9A37E48E2B052E22002ACDC4 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
-		9A37E4902B05321D002ACDC4 /* Showable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Showable.swift; sourceTree = "<group>"; };
 		9A4050042B0667C30023C72F /* ComicDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailView.swift; sourceTree = "<group>"; };
 		9A4050062B0667E20023C72F /* SerieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerieDetailView.swift; sourceTree = "<group>"; };
 		9A4691E12B03F8AE00D196F5 /* Comic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comic.swift; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 				9A37E48D2B052E01002ACDC4 /* Extensions */,
 				9A7F214D2B0218E100EE9A46 /* Assets.xcassets */,
 				9A7F214F2B0218E100EE9A46 /* Preview Content */,
-				9A37E4902B05321D002ACDC4 /* Showable.swift */,
 			);
 			path = MarvelApp;
 			sourceTree = "<group>";
@@ -437,7 +434,6 @@
 				9A7F215B2B021BBB00EE9A46 /* NetworkClientError.swift in Sources */,
 				9A7F21592B021BAE00EE9A46 /* NetworkClient.swift in Sources */,
 				9A37E46E2B05135B002ACDC4 /* ComicsRemoteService.swift in Sources */,
-				9A37E4912B05321D002ACDC4 /* Showable.swift in Sources */,
 				9A7F215D2B021BD200EE9A46 /* URLSessionNetworkClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
