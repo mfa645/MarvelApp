@@ -10,23 +10,18 @@ import SwiftUI
 struct CustomSegmentedPicker<T: CaseIterable & Hashable> : View where T.AllCases: RandomAccessCollection {
     public let sourcesEnum:T.Type
     public let selection: Binding<String>
-    public let onTabChange: () -> Void
     var body: some View {
         Picker("", selection: selection) {
             ForEach(sourcesEnum.allCases, id:\.self){source in
-                Text(String(describing: source).uppercased()).tag(String(describing: source).uppercased())
+                Text(String(describing: source).uppercased()).tag(String(describing: source))
                     .background(.red)
             }
         }
-        .onSubmit {
-            onTabChange()
-        }
         .pickerStyle(.segmented)
     }
-    init(sourcesEnum : T.Type, selection: Binding<String>, onTabChange: @escaping ()->Void){
+    init(sourcesEnum : T.Type, selection: Binding<String>){
         self.sourcesEnum = sourcesEnum
         self.selection = selection
-        self.onTabChange = onTabChange
         
         UISegmentedControl.appearance().backgroundColor = .marvelSecondary
         UISegmentedControl.appearance().selectedSegmentTintColor = .marvelRed
@@ -40,5 +35,5 @@ struct CustomSegmentedPicker<T: CaseIterable & Hashable> : View where T.AllCases
 
 
 #Preview {
-    CustomSegmentedPicker<SearchTypeFilters>(sourcesEnum: SearchTypeFilters.self, selection: .constant(SearchTypeFilters.characters.rawValue), onTabChange: {})
+    CustomSegmentedPicker<SearchTypeFilters>(sourcesEnum: SearchTypeFilters.self, selection: .constant(SearchTypeFilters.characters.rawValue))
 }

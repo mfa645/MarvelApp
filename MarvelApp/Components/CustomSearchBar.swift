@@ -39,7 +39,7 @@ struct CustomSearchBar: View {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
                 onCancelClicked()
             }
-            .opacity(active ? 1 : 0)
+//            .opacity(active ? 1 : 0)
             .frame(width: active ? nil : 0)
             .foregroundStyle(.marvelOnTertiary)
         }.frame(height: 28)

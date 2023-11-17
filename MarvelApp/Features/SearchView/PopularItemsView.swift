@@ -12,24 +12,27 @@ struct PopularItemsView<Item: Identifiable, Destination:View, ItemView:View>: Vi
     let items: [Item]
     let navigationDestination: (Item) -> Destination
     let itemView: (Item) -> ItemView
+    let onListAppendNeeded: (Int) -> Void
     
-    init(items: [Item], @ViewBuilder navigationDestination: @escaping (Item) -> Destination, @ViewBuilder itemView: @escaping (Item) -> ItemView){
+    init(items: [Item], @ViewBuilder navigationDestination: @escaping (Item) -> Destination, @ViewBuilder itemView: @escaping (Item) -> ItemView, onListAppendNeeded: @escaping (Int)->Void){
         self.items = items
         self.navigationDestination = navigationDestination
         self.itemView = itemView
+        self.onListAppendNeeded = onListAppendNeeded
     }
     var body: some View {
         NavigationStack{
             ScrollView(.horizontal){
                 HStack(alignment: .top){
-                    ForEach(items) { item in
+                    ForEach(items, id:\.id ) { item in
                         NavigationLink {
                             navigationDestination(item)
                         } label: {
                             itemView(item)
                                 .tint(.marvelPrimary)
+                        }.onAppear{
+                            onListAppendNeeded(item.id as! Int)
                         }
-                        
                     }
                 }
                 .frame(height: 200)
@@ -43,6 +46,6 @@ struct PopularItemsView<Item: Identifiable, Destination:View, ItemView:View>: Vi
         SerieDetailView(serie: serie)
     } itemView: { serie in
         PopularItemView(title: serie.title, imageUrl: serie.imageUrl)
-    }
+    } onListAppendNeeded: {itemId in}
     
 }

@@ -21,6 +21,11 @@ class SearchViewModel: ObservableObject {
     @Published var showErrorMessage = false
     @Published var isLoading = false
     
+    private var maxPages = false
+    private var total = -1
+    private var offset = 0
+    private var count = -1
+    
     init(charactersRepository: CharactersRepository, comicsRepository: ComicsRepository, seriesRepository: SeriesRepository) {
         self.charactersRepository = charactersRepository
         self.comicsRepository = comicsRepository
@@ -29,7 +34,7 @@ class SearchViewModel: ObservableObject {
     
     //MARK: SERIES
     @MainActor
-    func getSeries() async {
+    func getSeries(enablePaging: Bool) async {
         isLoading = true
         do {
             series = try await seriesRepository.getSeries()
@@ -39,7 +44,7 @@ class SearchViewModel: ObservableObject {
         isLoading = false
     }
     @MainActor
-    func getFilteredSeries(title: String) async {
+    func getFilteredSeries(title: String, enablePaging: Bool) async {
         isLoading = true
         do {
             series = try await seriesRepository.getFilteredSeries(title: title)
@@ -51,7 +56,7 @@ class SearchViewModel: ObservableObject {
     
     //MARK: COMICS
     @MainActor
-    func getComics() async {
+    func getComics(enablePaging: Bool) async {
         isLoading = true
         do {
             comics = try await comicsRepository.getComics()
@@ -61,7 +66,7 @@ class SearchViewModel: ObservableObject {
         isLoading = false
     }
     @MainActor
-    func getFilteredComics(title: String) async {
+    func getFilteredComics(title: String, enablePaging: Bool) async {
         isLoading = true
         do {
             comics = try await comicsRepository.getFilteredComics(title: title)
@@ -74,10 +79,24 @@ class SearchViewModel: ObservableObject {
     
     //MARK: CHARACTERS
     @MainActor
-    func getCharacters() async {
+    func getCharacters(enablePaging: Bool) async {
         isLoading = true
+        
         do {
-            characters = try await charactersRepository.getCharacters()
+            if(!enablePaging){
+                characters.removeAll()
+                offset = 0
+            }
+            let charactersResponse = try await charactersRepository.getCharacters(offset: offset)
+            total = charactersResponse.total
+            offset = charactersResponse.offset
+            count = charactersResponse.count
+            
+            if(total == offset || count == 0){
+                maxPages = true
+            }
+            offset == 0 ? characters = charactersResponse.results : characters.append(contentsOf: charactersResponse.results)
+            offset += count
         } catch {
             showErrorMessage = true
         }
@@ -85,10 +104,10 @@ class SearchViewModel: ObservableObject {
     }
     
     @MainActor
-    func getFilteredCharacters(name: String) async {
+    func getFilteredCharacters(name: String, enablePaging: Bool) async {
         isLoading = true
         do {
-            characters = try await charactersRepository.getFilteredCharacters(name: name)
+            characters = try await charactersRepository.getFilteredCharacters(name: name).results
         } catch {
             showErrorMessage = true
         }

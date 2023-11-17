@@ -12,9 +12,9 @@ struct Serie: Identifiable, Decodable {
     let title: String
     var thumbnail: [String:String]
     
-    init(id: Int, name: String, thumbnail: [String : String]) {
+    init(id: Int, title: String, thumbnail: [String : String]) {
         self.id = id
-        self.title = name
+        self.title = title
         self.thumbnail = thumbnail
     }
     
@@ -25,7 +25,7 @@ struct Serie: Identifiable, Decodable {
     static var example: Serie {
         .init(
             id: 82967,
-            name: "100th Anniversary Special (2014)",
+            title: "100th Anniversary Special (2014)",
             thumbnail: ["path" : "http://i.annihil.us/u/prod/marvel/i/mg/4/b0/5d939e25a9787","extension" : "jpg"]
         )
     }

@@ -7,6 +7,6 @@
 
 import Foundation
 protocol CharactersRemoteService {
-    func getCharacters() async throws -> [Character]
-    func getFilteredCharacters(name:String) async throws -> [Character]
+    func getCharacters(offset: Int) async throws -> DataResponse<Character>
+    func getFilteredCharacters(name:String) async throws -> DataResponse<Character>
 }

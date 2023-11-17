@@ -12,5 +12,8 @@ struct APIResponse<T: Decodable>: Decodable {
 }
 
 struct DataResponse<T: Decodable>: Decodable {
+    let offset : Int
+    let count : Int
+    let total : Int
     let results: [T]
 }

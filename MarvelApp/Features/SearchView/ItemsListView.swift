@@ -11,11 +11,14 @@ struct ItemsListView<Item: Identifiable, Destination:View, ItemView:View>: View 
     let items: [Item]
     let navigationDestination: (Item) -> Destination
     let itemView : (Item) -> ItemView
+    let onListAppendNeeded: (Int) -> Void
+
     
-    init(items: [Item], @ViewBuilder navigationDestination: @escaping (Item) -> Destination, @ViewBuilder itemView: @escaping (Item) -> ItemView){
+    init(items: [Item], @ViewBuilder navigationDestination: @escaping (Item) -> Destination, @ViewBuilder itemView: @escaping (Item) -> ItemView, onListAppendNeeded: @escaping (Int)->Void){
         self.items = items
         self.navigationDestination = navigationDestination
         self.itemView = itemView
+        self.onListAppendNeeded = onListAppendNeeded
     }
     
     var body: some View {
@@ -25,6 +28,8 @@ struct ItemsListView<Item: Identifiable, Destination:View, ItemView:View>: View 
                     navigationDestination(item)
                 } label: {
                     itemView(item)
+                }.onAppear{
+                    onListAppendNeeded(item.id.hashValue)
                 }
             }.listRowBackground(Color(.marvelSecondary))
         }
@@ -37,5 +42,7 @@ struct ItemsListView<Item: Identifiable, Destination:View, ItemView:View>: View 
         SerieDetailView(serie: serie)
     } itemView: {serie in
         Text(serie.title)
+    } onListAppendNeeded: {itemId in
+        
     }
 }

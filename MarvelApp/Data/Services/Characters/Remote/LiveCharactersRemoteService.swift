@@ -14,14 +14,14 @@ struct LiveCharactersRemoteService: CharactersRemoteService {
         self.networkClient = networkClient
     }
     
-    func getCharacters() async throws -> [Character] {
-        let response: APIResponse<Character> = try await networkClient.get(url: "\(NetworkConstants.charactersUrl)?ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)")
-        return response.data.results
+    func getCharacters(offset: Int) async throws -> DataResponse<Character> {
+        let response: APIResponse<Character> = try await networkClient.get(url: "\(NetworkConstants.charactersUrl)?ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)&offset=\(offset)")
+        return response.data
     }
     
-    func getFilteredCharacters(name: String) async throws -> [Character] {
+    func getFilteredCharacters(name: String) async throws -> DataResponse<Character> {
         let response: APIResponse<Character> = try await networkClient.get(url: "\(NetworkConstants.charactersUrl)?nameStartsWith=\(name)&ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)")
-        return response.data.results
+        return response.data
     }
     
 }
