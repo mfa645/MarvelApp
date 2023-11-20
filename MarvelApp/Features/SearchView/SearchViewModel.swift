@@ -35,19 +35,17 @@ class SearchViewModel: ObservableObject {
     //MARK: SERIES
     @MainActor
     func getSeries(enablePaging: Bool) async {
-        isLoading = true
+        if(!enablePaging){
+            series.removeAll()
+            offset = 0
+            maxPages = false
+        }
         if(maxPages){
-            isLoading = false
-            print(maxPages)
-
             return
         }
+        isLoading = true
         do {
-            if(!enablePaging){
-                series.removeAll()
-                offset = 0
-                maxPages = false
-            }
+
             let seriesResponse = try await seriesRepository.getSeries(offset : offset)
             total = seriesResponse.total
             offset = seriesResponse.offset
@@ -65,17 +63,15 @@ class SearchViewModel: ObservableObject {
     }
     @MainActor
     func getFilteredSeries(title: String, enablePaging: Bool) async {
-        isLoading = true
         if(!enablePaging){
             series.removeAll()
             offset = 0
             maxPages = false
         }
-        
         if(maxPages){
-            isLoading = false
             return
         }
+        isLoading = true
         do {
             let seriesResponse = try await seriesRepository.getFilteredSeries(title: title, offset: offset)
             total = seriesResponse.total
@@ -96,17 +92,16 @@ class SearchViewModel: ObservableObject {
     //MARK: COMICS
     @MainActor
     func getComics(enablePaging: Bool) async {
-        isLoading = true
+        if(!enablePaging){
+            comics.removeAll()
+            offset = 0
+            maxPages = false
+        }
         if(maxPages){
-            isLoading = false
             return
         }
+        isLoading = true
         do {
-            if(!enablePaging){
-                comics.removeAll()
-                offset = 0
-                maxPages = false
-            }
             let comicsResponse = try await comicsRepository.getComics(offset : offset)
             total = comicsResponse.total
             offset = comicsResponse.offset
@@ -125,17 +120,17 @@ class SearchViewModel: ObservableObject {
     
     @MainActor
     func getFilteredComics(title: String, enablePaging: Bool) async {
-        isLoading = true
+        if(!enablePaging){
+            comics.removeAll()
+            offset = 0
+            maxPages = false
+        }
         if(maxPages){
-            isLoading = false
             return
         }
+        isLoading = true
+
         do {
-            if(!enablePaging){
-                comics.removeAll()
-                offset = 0
-                maxPages = false
-            }
             let comicsResponse = try await comicsRepository.getFilteredComics(title: title, offset: offset)
             total = comicsResponse.total
             offset = comicsResponse.offset
@@ -156,17 +151,16 @@ class SearchViewModel: ObservableObject {
     //MARK: CHARACTERS
     @MainActor
     func getCharacters(enablePaging: Bool) async {
-        isLoading = true
+        if(!enablePaging){
+            characters.removeAll()
+            offset = 0
+            maxPages = false
+        }
         if(maxPages){
-            isLoading = false
             return
         }
+        isLoading = true
         do {
-            if(!enablePaging){
-                characters.removeAll()
-                offset = 0
-                maxPages = false
-            }
             let charactersResponse = try await charactersRepository.getCharacters(offset: offset)
             total = charactersResponse.total
             offset = charactersResponse.offset
@@ -185,17 +179,16 @@ class SearchViewModel: ObservableObject {
     
     @MainActor
     func getFilteredCharacters(name: String, enablePaging: Bool) async {
-        isLoading = true
+        if(!enablePaging){
+            characters.removeAll()
+            offset = 0
+            maxPages = false
+        }
         if(maxPages){
-            isLoading = false
             return
         }
+        isLoading = true
         do{
-            if(!enablePaging){
-                characters.removeAll()
-                offset = 0
-                maxPages = false
-            }
             let charactersResponse = try await charactersRepository.getFilteredCharacters(name: name, offset: offset)
             total = charactersResponse.total
             offset = charactersResponse.offset
