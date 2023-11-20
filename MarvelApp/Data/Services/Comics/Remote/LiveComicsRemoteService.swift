@@ -15,13 +15,13 @@ struct LiveComicsRemoteService: ComicsRemoteService{
         self.networkClient = networkClient
     }
     
-    func getComics() async throws -> [Comic] {
-        let response: APIResponse<Comic> = try await networkClient.get(url: "\(NetworkConstants.comicsUrl)?ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)")
-        return response.data.results
+    func getComics(offset: Int) async throws -> DataResponse<Comic> {
+        let response: APIResponse<Comic> = try await networkClient.get(url: "\(NetworkConstants.comicsUrl)?ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)&offset=\(offset)")
+        return response.data
     }
     
-    func getFilteredComics(title: String) async throws -> [Comic] {
-        let response: APIResponse<Comic> = try await networkClient.get(url: "\(NetworkConstants.comicsUrl)?titleStartsWith=\(title)&ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)")
-        return response.data.results
+    func getFilteredComics(title: String, offset: Int) async throws -> DataResponse<Comic> {
+        let response: APIResponse<Comic> = try await networkClient.get(url: "\(NetworkConstants.comicsUrl)?titleStartsWith=\(title)&ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)&offset=\(offset)")
+        return response.data
     }
 }

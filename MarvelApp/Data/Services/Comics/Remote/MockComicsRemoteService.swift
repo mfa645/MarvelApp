@@ -8,7 +8,7 @@
 import Foundation
 
 struct MockComicsRemoteService: ComicsRemoteService {
-    func getFilteredComics(title: String) async throws -> [Comic] {
+    func getFilteredComics(title: String, offset: Int) async throws -> DataResponse<Comic> {
         let comics : [Comic] = [
             .init(
                 id: 1,
@@ -62,13 +62,16 @@ struct MockComicsRemoteService: ComicsRemoteService {
             )
         ]
         
-        return comics.filter{comic in
+        let filteredComics = comics.filter{comic in
             comic.title.starts(with: title)
+            
         }
+        return DataResponse<Comic>(offset: 0, count: filteredComics.count, total: filteredComics.count, results: filteredComics)
+        
     }
     
-    func getComics() async throws -> [Comic] {
-        [
+    func getComics(offset: Int) async throws -> DataResponse<Comic> {
+        let comics: [Comic] =  [
             .init(
                 id: 1,
                 title: "Ant-Man (2003) #3",
@@ -95,5 +98,6 @@ struct MockComicsRemoteService: ComicsRemoteService {
                 thumbnail: ["path" : "http://i.annihil.us/u/prod/marvel/i/mg/c/60/4bc69f11baf75","extension" : "jpg"]
             )
         ]
+        return DataResponse<Comic>(offset: 0, count: 5, total: 5, results: comics)
     }
 }

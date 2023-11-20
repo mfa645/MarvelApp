@@ -18,8 +18,8 @@ struct CharactersRepository {
         try await remoteService.getCharacters(offset: offset)
     }
         
-    func getFilteredCharacters(name : String) async throws -> DataResponse<Character> {
-        try await remoteService.getFilteredCharacters(name: name)
+    func getFilteredCharacters(name : String, offset: Int) async throws -> DataResponse<Character> {
+        try await remoteService.getFilteredCharacters(name: name, offset: offset)
     }
     
 }

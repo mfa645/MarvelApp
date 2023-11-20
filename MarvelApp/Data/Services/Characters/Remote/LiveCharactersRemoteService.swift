@@ -19,8 +19,8 @@ struct LiveCharactersRemoteService: CharactersRemoteService {
         return response.data
     }
     
-    func getFilteredCharacters(name: String) async throws -> DataResponse<Character> {
-        let response: APIResponse<Character> = try await networkClient.get(url: "\(NetworkConstants.charactersUrl)?nameStartsWith=\(name)&ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)")
+    func getFilteredCharacters(name: String, offset: Int) async throws -> DataResponse<Character> {
+        let response: APIResponse<Character> = try await networkClient.get(url: "\(NetworkConstants.charactersUrl)?nameStartsWith=\(name)&ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)&offset=\(offset)")
         return response.data
     }
     

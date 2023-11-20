@@ -14,12 +14,12 @@ struct ComicsRepository {
         self.remoteService = remoteService
     }
     
-    func getComics() async throws -> [Comic] {
-        try await remoteService.getComics()
+    func getComics(offset: Int) async throws -> DataResponse<Comic> {
+        try await remoteService.getComics(offset: offset)
     }
         
-    func getFilteredComics(title : String) async throws -> [Comic] {
-        try await remoteService.getFilteredComics(title: title)
+    func getFilteredComics(title : String, offset: Int) async throws -> DataResponse<Comic> {
+        try await remoteService.getFilteredComics(title: title, offset: offset)
     }
     
 }

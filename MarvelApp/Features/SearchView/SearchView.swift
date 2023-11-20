@@ -22,9 +22,7 @@ struct SearchView: View {
         NavigationStack {
             VStack(spacing: 30){
                 CustomSegmentedPicker<SearchTypeFilters>(sourcesEnum: SearchTypeFilters.self, selection: $selected)
-                
                 makePopularItemsView()
-                
                 VStack{
                     CustomSearchBar(
                         searchFilter: $textObserver.searchText,
@@ -34,19 +32,23 @@ struct SearchView: View {
                     .padding()
                     
                     makeItemsListView()
+                    if(viewModel.isLoading){
+                        ProgressView()
+                    }
                 }
                 .background(.marvelSecondary)
             }
             .onChange(of: textObserver.debouncedText, initial: true){
-                    fetchItems()
+                fetchItems()
             }
             .onChange(of: selected) {
-                    fetchItems()
+                fetchItems()
             }
         }.onAppear {
             fetchItems()
         }
     }
+    
     func fetchItems(enablePaging: Bool = false){
         Task{
             switch selected{

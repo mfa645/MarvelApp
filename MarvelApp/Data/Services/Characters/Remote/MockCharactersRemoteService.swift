@@ -8,7 +8,7 @@
 import Foundation
 
 struct MockCharactersRemoteService: CharactersRemoteService {
-    func getFilteredCharacters(name: String) async throws -> DataResponse<Character> {
+    func getFilteredCharacters(name: String, offset: Int) async throws -> DataResponse<Character> {
         let characters : [Character] = [
             .init(
                 id: 1011334,
