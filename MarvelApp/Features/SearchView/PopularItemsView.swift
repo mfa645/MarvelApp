@@ -45,7 +45,7 @@ struct PopularItemsView<Item: Identifiable, Destination:View, ItemView:View>: Vi
     PopularItemsView(items: [Serie.example]) { serie in
         SerieDetailView(serie: serie)
     } itemView: { serie in
-        PopularItemView(title: serie.title, imageUrl: serie.imageUrl)
+        PopularItemView(title: serie.title, imageUrl: serie.imageUrl, rounded: false)
     } onListAppendNeeded: {itemId in}
     
 }

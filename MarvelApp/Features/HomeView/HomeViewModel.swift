@@ -6,3 +6,12 @@
 //
 
 import Foundation
+class HomeViewModel : ObservableObject{
+    let comicsRepository: ComicsRepository
+    let seriesRepository: SeriesRepository
+    
+    init(comicsRepository: ComicsRepository, seriesRepository: SeriesRepository) {
+        self.comicsRepository = comicsRepository
+        self.seriesRepository = seriesRepository
+    }
+}

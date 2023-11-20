@@ -16,19 +16,7 @@ struct ContentView: View {
     }
     var body: some View {
         TabView{
-            ScrollView{
-                VStack(spacing:10){
-                    Text("Home")
-                    Text("Home")
-                    Text("Home")
-                    Text("Home")
-                    Text("Home")
-                    Text("Home")
-                    Text("Home")
-                    Text("Home")
-                    Text("Home")
-                }
-            }
+            coordinator.makeHomeView()
                 .tabItem{
                     Label("Home",systemImage: "house.fill")
                 }

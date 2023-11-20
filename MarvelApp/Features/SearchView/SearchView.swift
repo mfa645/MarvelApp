@@ -33,7 +33,7 @@ struct SearchView: View {
                     
                     makeItemsListView()
                     if(viewModel.isLoading){
-                        ProgressView()
+                        ProgressView().tint(.red)
                     }
                 }
                 .background(.marvelSecondary)
@@ -68,70 +68,94 @@ struct SearchView: View {
     func makeItemsListView() -> AnyView{
         switch selected{
         case "characters" :
-            return AnyView(ItemsListView(items: viewModel.characters) { character in
-                CharacterDetailView(character: character)
-            } itemView: {character in
-                Text(character.name)
-            }onListAppendNeeded: { itemId in
-                if(viewModel.characters.last?.id.hashValue == itemId){
-                    fetchItems(enablePaging: true)
+            return AnyView(
+                coordinator.makeItemsListView(items: viewModel.characters) { character in
+                    CharacterDetailView(character: character)
                 }
-            })
+                itemView: {character in
+                    Text(character.name)
+                }
+                onListAppendNeeded: { itemId in
+                    if(viewModel.characters.last?.id.hashValue == itemId){
+                        fetchItems(enablePaging: true)
+                    }
+                }
+            )
         case "series" :
-            return AnyView(ItemsListView(items: viewModel.series) { serie in
-                SerieDetailView(serie: serie)
-            } itemView: {serie in
-                Text(serie.title)
-            }onListAppendNeeded: { itemId in
-                if(viewModel.series.last?.id.hashValue == itemId){
-                    fetchItems(enablePaging: true)
+            return AnyView(
+                coordinator.makeItemsListView(items: viewModel.series) { serie in
+                    SerieDetailView(serie: serie)
                 }
-            })
+                itemView: {serie in
+                    Text(serie.title)
+                }
+                onListAppendNeeded: { itemId in
+                    if(viewModel.series.last?.id.hashValue == itemId){
+                        fetchItems(enablePaging: true)
+                    }
+                }
+            )
         default:
-            return AnyView(ItemsListView(items: viewModel.comics) { comic in
-                ComicDetailView(comic: comic)
-            } itemView: {comic in
-                Text(comic.title)
-            }onListAppendNeeded: { itemId in
-                if(viewModel.comics.last?.id.hashValue == itemId){
-                    fetchItems(enablePaging: true)
+            return AnyView(
+                coordinator.makeItemsListView(items: viewModel.comics) { comic in
+                    ComicDetailView(comic: comic)
                 }
-            })
+                itemView: {comic in
+                    Text(comic.title)
+                }
+                onListAppendNeeded: { itemId in
+                    if(viewModel.comics.last?.id.hashValue == itemId){
+                        fetchItems(enablePaging: true)
+                    }
+                }
+            )
         }
     }
     
     func makePopularItemsView() -> AnyView{
         switch selected.lowercased(){
         case "characters" :
-            return AnyView( PopularItemsView(items: viewModel.characters) { character in
-                CharacterDetailView(character: character)
-            } itemView: { character in
-                PopularItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
-            }onListAppendNeeded: { itemId in
-                if(viewModel.characters.last?.id.hashValue == itemId){
-                    fetchItems(enablePaging: true)
+            return AnyView(
+                coordinator.makePopularItemsView(items: viewModel.characters) { character in
+                    coordinator.makeCharacterDetailView(character: character)
                 }
-            })
+                itemView: { character in
+                    coordinator.makePopularItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
+                }
+                onListAppendNeeded: { itemId in
+                    if(viewModel.characters.last?.id.hashValue == itemId){
+                        fetchItems(enablePaging: true)
+                    }
+                }
+            )
         case "series" :
-            return AnyView(PopularItemsView(items: viewModel.series) { serie in
-                SerieDetailView(serie: serie)
-            } itemView: { serie in
-                PopularItemView(title: serie.title, imageUrl: serie.imageUrl)
-            }onListAppendNeeded: { itemId in
-                if(viewModel.series.last?.id.hashValue == itemId){
-                    fetchItems(enablePaging: true)
+            return AnyView(
+                coordinator.makePopularItemsView(items: viewModel.series) { serie in
+                    coordinator.makeSerieDetailView(serie: serie)
                 }
-            })
+                itemView: { serie in
+                    coordinator.makePopularItemView(title: serie.title, imageUrl: serie.imageUrl)
+                }
+                onListAppendNeeded: { itemId in
+                    if(viewModel.series.last?.id.hashValue == itemId){
+                        fetchItems(enablePaging: true)
+                    }
+                }
+            )
         default:
-            return AnyView(PopularItemsView(items: viewModel.comics) { comic in
-                ComicDetailView(comic: comic)
-            } itemView: { comic in
-                PopularItemView(title: comic.title, imageUrl: comic.imageUrl)
-            }onListAppendNeeded: { itemId in
-                if(viewModel.comics.last?.id.hashValue == itemId){
-                    fetchItems(enablePaging: true)
+            return AnyView(
+                coordinator.makePopularItemsView(items: viewModel.comics) { comic in
+                    coordinator.makeComicDetailView(comic: comic)
                 }
-            })
+                itemView: { comic in
+                    coordinator.makePopularItemView(title: comic.title, imageUrl: comic.imageUrl)
+                }
+                onListAppendNeeded: { itemId in
+                    if(viewModel.comics.last?.id.hashValue == itemId){
+                        fetchItems(enablePaging: true)
+                    }
+                }
+            )
         }
     }
     
@@ -160,6 +184,6 @@ enum SearchTypeFilters: String, CaseIterable{
 }
 
 #Preview {
-    let coordinator = Coordinator(mock: false)
+    let coordinator = Coordinator(mock: true)
     return coordinator.makeSearchView().environmentObject(coordinator)
 }
