@@ -13,6 +13,7 @@ struct NetworkConstants{
     static let comicsUrl = "https://gateway.marvel.com/v1/public/comics"
     static let charactersUrl = "https://gateway.marvel.com/v1/public/characters"
     static let seriesUrl = "https://gateway.marvel.com/v1/public/series"
+    static let eventsUrl = "https://gateway.marvel.com/v1/public/events"
     
     //MARK: Auth
     static let ts = "1"

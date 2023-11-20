@@ -161,6 +161,7 @@ struct SearchView: View {
     
 }
 
+//OBSERVERS
 class TextFieldObserver : ObservableObject {
     @Published var debouncedText = ""
     @Published var searchText = ""
@@ -184,6 +185,6 @@ enum SearchTypeFilters: String, CaseIterable{
 }
 
 #Preview {
-    let coordinator = Coordinator(mock: true)
+    let coordinator = Coordinator(mock: false)
     return coordinator.makeSearchView().environmentObject(coordinator)
 }

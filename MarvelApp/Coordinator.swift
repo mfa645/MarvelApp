@@ -11,6 +11,7 @@ class Coordinator: ObservableObject {
     private let charactersRepository: CharactersRepository
     private let comicsRepository: ComicsRepository
     private let seriesRepository: SeriesRepository
+    private let eventsRepository: EventsRepository
 
     
     init(mock: Bool = false) {
@@ -24,6 +25,9 @@ class Coordinator: ObservableObject {
         
         let seriesRemoteService: SeriesRemoteService = mock ? MockSeriesRemoteService() : LiveSeriesRemoteService(networkClient: networkClient)
         seriesRepository = SeriesRepository(remoteService: seriesRemoteService)
+        
+        let eventsRemoteService: EventsRemoteService = mock ? MockEventsRemoteService() : LiveEventsRemoteService(networkClient: networkClient)
+        eventsRepository = EventsRepository(remoteService: eventsRemoteService)
     }
     
     //MARK: - HomeView
@@ -33,7 +37,7 @@ class Coordinator: ObservableObject {
     }
     
     private func makeHomeViewModel() -> HomeViewModel{
-        .init(comicsRepository: comicsRepository, seriesRepository: seriesRepository)
+        .init(comicsRepository: comicsRepository, seriesRepository: seriesRepository, eventsRepository: eventsRepository)
     }
     
     //MARK: - SearchView
