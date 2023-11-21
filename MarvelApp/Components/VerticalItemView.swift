@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PopularItemView: View {
+struct VerticalItemView: View {
     let title : String
     let imageUrl: String
     var rounded : Bool
@@ -39,9 +39,9 @@ struct PopularItemView: View {
     let character = Character.example
     return ScrollView(.horizontal){
         HStack{
-            PopularItemView(title: serie.title, imageUrl: serie.imageUrl, rounded: false)
-            PopularItemView(title: comic.title, imageUrl: "https://i.annihil.us/u/prod/marvel/i/mg/9/20/4bc665483c3aa.jpg", rounded: false)
-            PopularItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
+            VerticalItemView(title: serie.title, imageUrl: serie.imageUrl, rounded: false)
+            VerticalItemView(title: comic.title, imageUrl: "https://i.annihil.us/u/prod/marvel/i/mg/9/20/4bc665483c3aa.jpg", rounded: false)
+            VerticalItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
         }
-    }
+    }.scrollIndicators(.hidden)
 }

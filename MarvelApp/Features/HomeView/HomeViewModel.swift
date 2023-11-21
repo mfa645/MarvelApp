@@ -41,28 +41,11 @@ class HomeViewModel : ObservableObject{
     }
     
     @MainActor
-    func getSeries(enablePaging: Bool) async {
-        if(!enablePaging){
-            series.removeAll()
-            offset = 0
-            maxPages = false
-        }
-        if(maxPages){
-            return
-        }
+    func getSeries() async {
         isLoading = true
         do {
 
-            let seriesResponse = try await seriesRepository.getSeries(offset : offset)
-            total = seriesResponse.total
-            offset = seriesResponse.offset
-            count = seriesResponse.count
-            
-            if(total == offset || count == 0){
-                maxPages = true
-            }
-            offset == 0 ? series = seriesResponse.results : series.append(contentsOf: seriesResponse.results)
-            offset += count
+            series = try await seriesRepository.getSeries(offset : 0).results
         } catch {
             showErrorMessage = true
         }
@@ -70,7 +53,7 @@ class HomeViewModel : ObservableObject{
     }
     
     @MainActor
-    func getComics(enablePaging: Bool) async {
+    func getComics(enablePaging: Bool = false) async {
         if(!enablePaging){
             comics.removeAll()
             offset = 0

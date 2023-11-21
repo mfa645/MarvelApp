@@ -13,7 +13,7 @@ struct ContentView: View {
     
     init() {
         UITabBar.appearance().scrollEdgeAppearance = UITabBarAppearance.init(idiom: .unspecified)
-    }
+            }
     var body: some View {
         TabView{
             coordinator.makeHomeView()

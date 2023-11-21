@@ -42,8 +42,8 @@ class Coordinator: ObservableObject {
     
     //MARK: - SearchView
     
-    func makeSearchView() -> SearchView {
-        SearchView(viewModel: makeSearchViewModel())
+    func makeSearchView(selected: String = SearchTypeFilters.characters.rawValue) -> SearchView {
+        SearchView(viewModel: makeSearchViewModel(), selected: selected)
     }
     
     private func makeSearchViewModel() -> SearchViewModel{
@@ -60,13 +60,13 @@ class Coordinator: ObservableObject {
         
     }
     
-    func makePopularItemsView<Item: Identifiable, Destination: View, ItemView: View> (items: [Item], @ViewBuilder navigationDestination: @escaping (Item) -> Destination, @ViewBuilder itemView: @escaping (Item) -> ItemView, onListAppendNeeded: @escaping (Int)->Void) -> some View {
+    func makePopularItemsView<Item: Identifiable, Destination: View, ItemView: View> (items: [Item], @ViewBuilder navigationDestination: @escaping (Item) -> Destination, @ViewBuilder itemView: @escaping (Item) -> ItemView) -> some View {
         
-        return PopularItemsView(items: items, navigationDestination: navigationDestination, itemView: itemView, onListAppendNeeded: onListAppendNeeded)
+        return HorizontalItemsList(items: items, navigationDestination: navigationDestination, itemView: itemView)
     }
     
     func makePopularItemView(title: String, imageUrl: String, rounded : Bool = false) -> some View {
-       return PopularItemView(title: title, imageUrl: imageUrl, rounded: rounded)
+       return VerticalItemView(title: title, imageUrl: imageUrl, rounded: rounded)
     }
     
     //MARK: Details

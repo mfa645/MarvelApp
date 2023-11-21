@@ -31,6 +31,7 @@ struct CustomSearchBar: View {
             }
             .padding(7)
             .background(.marvelTertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
             
             Button("Cancel") {
                 withAnimation {

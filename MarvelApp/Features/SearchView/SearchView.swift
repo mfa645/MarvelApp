@@ -6,21 +6,21 @@
 //
 
 import SwiftUI
-import Combine
 
 struct SearchView: View {
     @EnvironmentObject var coordinator: Coordinator
     @StateObject private var viewModel: SearchViewModel
     @StateObject var textObserver = TextFieldObserver()
-    @State private var selected =  SearchTypeFilters.characters.rawValue
+    @State private var selected : String
     
-    init(viewModel: SearchViewModel) {
+    init(viewModel: SearchViewModel, selected : String = SearchTypeFilters.characters.rawValue) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        _selected = State(wrappedValue: selected) 
     }
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 30){
+            VStack(){
                 CustomSegmentedPicker<SearchTypeFilters>(sourcesEnum: SearchTypeFilters.self, selection: $selected)
                 makePopularItemsView()
                 VStack{
@@ -122,11 +122,6 @@ struct SearchView: View {
                 itemView: { character in
                     coordinator.makePopularItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
                 }
-                onListAppendNeeded: { itemId in
-                    if(viewModel.characters.last?.id.hashValue == itemId){
-                        fetchItems(enablePaging: true)
-                    }
-                }
             )
         case "series" :
             return AnyView(
@@ -135,11 +130,6 @@ struct SearchView: View {
                 }
                 itemView: { serie in
                     coordinator.makePopularItemView(title: serie.title, imageUrl: serie.imageUrl)
-                }
-                onListAppendNeeded: { itemId in
-                    if(viewModel.series.last?.id.hashValue == itemId){
-                        fetchItems(enablePaging: true)
-                    }
                 }
             )
         default:
@@ -150,32 +140,10 @@ struct SearchView: View {
                 itemView: { comic in
                     coordinator.makePopularItemView(title: comic.title, imageUrl: comic.imageUrl)
                 }
-                onListAppendNeeded: { itemId in
-                    if(viewModel.comics.last?.id.hashValue == itemId){
-                        fetchItems(enablePaging: true)
-                    }
-                }
             )
         }
     }
     
-}
-
-//OBSERVERS
-class TextFieldObserver : ObservableObject {
-    @Published var debouncedText = ""
-    @Published var searchText = ""
-    
-    private var subscriptions = Set<AnyCancellable>()
-    
-    init() {
-        $searchText
-            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] text in
-                self?.debouncedText = text
-            } )
-            .store(in: &subscriptions)
-    }
 }
 
 enum SearchTypeFilters: String, CaseIterable{
