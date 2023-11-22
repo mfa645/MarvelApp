@@ -15,7 +15,7 @@ struct SearchView: View {
     
     init(viewModel: SearchViewModel, selected : String = SearchTypeFilters.characters.rawValue) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        _selected = State(wrappedValue: selected) 
+        _selected = State(wrappedValue: selected)
     }
     
     var body: some View {
@@ -122,6 +122,8 @@ struct SearchView: View {
                 itemView: { character in
                     coordinator.makePopularItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
                 }
+                    .frame(height:200)
+                    .padding(.top)
             )
         case "series" :
             return AnyView(

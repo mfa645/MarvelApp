@@ -26,9 +26,15 @@ struct VerticalItemView: View {
                 .lineLimit(2, reservesSpace: true)
                 .multilineTextAlignment(.center)
                 .font(.headline).padding(.top)
+                .if(rounded) { view in
+                    view.frame(width: 110)
+                }
             Spacer()
         }
         .frame(width: 200,height: 200)
+        .if(rounded) { view in
+            view.frame(width: 120)
+        }
         .padding()
     }
 }
@@ -41,6 +47,8 @@ struct VerticalItemView: View {
         HStack{
             VerticalItemView(title: serie.title, imageUrl: serie.imageUrl, rounded: false)
             VerticalItemView(title: comic.title, imageUrl: "https://i.annihil.us/u/prod/marvel/i/mg/9/20/4bc665483c3aa.jpg", rounded: false)
+            VerticalItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
+            VerticalItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
             VerticalItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
         }
     }.scrollIndicators(.hidden)

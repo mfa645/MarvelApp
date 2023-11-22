@@ -13,6 +13,11 @@ struct HomeView: View {
     
     init(viewModel: HomeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        
+        UINavigationBar.appearance().standardAppearance = appearance
     }
     var body: some View {
         NavigationStack{
@@ -29,7 +34,7 @@ struct HomeView: View {
                         
                         makeSeriesList()
                     }
-                    .background(.marvelSecondary.opacity(0.3))
+                    .background(.marvelSecondary.opacity(0.5))
                     
                 }
                 .task{
@@ -38,7 +43,28 @@ struct HomeView: View {
                     await viewModel.getEvents()
                 }
             }
-        }.scrollBounceBehavior(.basedOnSize)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "magnifyingglass").tint(.white.opacity(0.7)).padding(.trailing)
+                    }
+
+                }                
+                ToolbarItem(placement: .principal) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "magnifyingglass").tint(.white.opacity(0.7)).padding(.trailing)
+                    }
+
+                }
+            }
+            .ignoresSafeArea(edges: .horizontal)
+            .ignoresSafeArea(edges: .top)
+        }
+        .scrollBounceBehavior(.basedOnSize)
     }
     private func makeComicsList() -> some View{
         return coordinator.makePopularItemsView(items: viewModel.comics, navigationDestination:{ comic in
@@ -59,28 +85,37 @@ struct HomeView: View {
     private func makePaginatedTab() -> some View{
         TabView {
             ForEach(viewModel.events) { lastEvent in
-                VStack{
-                    ZStack(alignment: .bottom) {
-                        AsyncImage(url: URL(string: lastEvent.imageUrl)){image in
-                            image.image?.resizable()
-                                .scaledToFill()
-                                .clipped()
-                                .overlay(Color.black.opacity(0.15))
-                        }
-                        HStack {
-                            Spacer()
-                            Text(lastEvent.title)
-                                .foregroundColor(.white)
-                                .font(.title)
+                VStack(){
+                    Spacer()
+                    HStack() {
+                        Spacer()
+                        VStack{
+                            Text(lastEvent.title.uppercased())
+                                .foregroundStyle(.white)
+                                .font(.headline)
                                 .fontWeight(.bold)
-                                .padding()
+                            Text(lastEvent.description)
+                                .foregroundStyle(.white)
+                                .font(.subheadline)
+                                .fontWeight(.bold)
                             Spacer()
-                        }.background(Color.marvelTertiary.opacity(0.9))
+                        }.frame(height: 60)
+                        Spacer()
                     }
+                    .padding()
+                    .background(Color.marvelTertiary.opacity(0.4))
                 }
+                .frame(height:300)
+                .background(
+                    AsyncImage(url: URL(string: lastEvent.imageUrl)){image in
+                        image.image?.resizable()
+                            .scaledToFill()
+                            .clipped()
+                        .overlay(Color.black.opacity(0.40))}
+                )
             }
         }
-        .frame(height:400, alignment: .top)
+        .frame(height:300)
         .tabViewStyle(PageTabViewStyle())
     }
     
