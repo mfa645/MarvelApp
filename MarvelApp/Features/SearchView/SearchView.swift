@@ -70,7 +70,7 @@ struct SearchView: View {
         case "characters" :
             return AnyView(
                 coordinator.makeItemsListView(items: viewModel.characters) { character in
-                    CharacterDetailView(character: character)
+                    coordinator.makeCharacterDetailView(character: character)
                 }
                 itemView: {character in
                     Text(character.name)

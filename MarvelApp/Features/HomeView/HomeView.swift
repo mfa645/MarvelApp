@@ -34,7 +34,7 @@ struct HomeView: View {
                         
                         makeSeriesList()
                     }
-                    .background(.marvelSecondary.opacity(0.5))
+                    .background(.marvelTertiary.opacity(0.3))
                     
                 }
                 .task{
@@ -44,21 +44,9 @@ struct HomeView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "magnifyingglass").tint(.white.opacity(0.7)).padding(.trailing)
-                    }
 
-                }                
                 ToolbarItem(placement: .principal) {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "magnifyingglass").tint(.white.opacity(0.7)).padding(.trailing)
-                    }
-
+                    Image("marvelLogo").resizable().scaledToFit().scaleEffect(2).tint(.white.opacity(0.7)).padding(.trailing)
                 }
             }
             .ignoresSafeArea(edges: .horizontal)
