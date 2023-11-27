@@ -9,4 +9,5 @@ import Foundation
 protocol SeriesRemoteService {
     func getSeries(offset: Int) async throws -> DataResponse<Serie>
     func getFilteredSeries(title:String, offset: Int) async throws -> DataResponse<Serie>
+    func getSeriesOfCharacter(characterId: Int) async throws -> DataResponse<Serie>
 }

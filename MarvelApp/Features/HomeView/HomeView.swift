@@ -55,7 +55,7 @@ struct HomeView: View {
         .scrollBounceBehavior(.basedOnSize)
     }
     private func makeComicsList() -> some View{
-        return coordinator.makePopularItemsView(items: viewModel.comics, navigationDestination:{ comic in
+        return coordinator.makeHorizontalItemsList(items: viewModel.comics, navigationDestination:{ comic in
             coordinator.makeComicDetailView(comic: comic)
         }, itemView: { comic in
             VerticalItemView(title: comic.title, imageUrl: comic.imageUrl, rounded: false)
@@ -63,7 +63,7 @@ struct HomeView: View {
     }
     
     private func makeSeriesList() -> some View{
-        return coordinator.makePopularItemsView(items: viewModel.series, navigationDestination:{ serie in
+        return coordinator.makeHorizontalItemsList(items: viewModel.series, navigationDestination:{ serie in
             SerieDetailView(serie: serie)
         }, itemView: { serie in
             VerticalItemView(title: serie.title, imageUrl: serie.imageUrl, rounded: false)

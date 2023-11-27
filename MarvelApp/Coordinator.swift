@@ -60,12 +60,12 @@ class Coordinator: ObservableObject {
         
     }
     
-    func makePopularItemsView<Item: Identifiable, Destination: View, ItemView: View> (items: [Item], @ViewBuilder navigationDestination: @escaping (Item) -> Destination, @ViewBuilder itemView: @escaping (Item) -> ItemView) -> some View {
+    func makeHorizontalItemsList<Item: Identifiable, Destination: View, ItemView: View> (items: [Item], @ViewBuilder navigationDestination: @escaping (Item) -> Destination, @ViewBuilder itemView: @escaping (Item) -> ItemView) -> some View {
         
         return HorizontalItemsList(items: items, navigationDestination: navigationDestination, itemView: itemView)
     }
     
-    func makePopularItemView(title: String, imageUrl: String, rounded : Bool = false) -> some View {
+    func makeVerticalItem(title: String, imageUrl: String, rounded : Bool = false) -> some View {
        return VerticalItemView(title: title, imageUrl: imageUrl, rounded: rounded)
     }
     

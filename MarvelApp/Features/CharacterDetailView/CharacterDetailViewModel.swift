@@ -22,11 +22,11 @@ class CharacterDetailViewModel: ObservableObject{
     }
     
     @MainActor
-    func getSeries() async {
+    func getSeries(characterId:Int) async {
         isLoading = true
         do {
 
-            series = try await seriesRepository.getSeries(offset : 0).results
+            series = try await seriesRepository.getSeriesOfCharacter(characterId: characterId).results
         } catch {
             showErrorMessage = true
         }

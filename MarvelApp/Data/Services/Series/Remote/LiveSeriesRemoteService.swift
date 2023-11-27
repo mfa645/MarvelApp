@@ -8,6 +8,11 @@
 import Foundation
 
 struct LiveSeriesRemoteService: SeriesRemoteService{
+    func getSeriesOfCharacter(characterId: Int) async throws -> DataResponse<Serie> {
+        let response: APIResponse<Serie> = try await networkClient.get(url: "\(NetworkConstants.charactersUrl)/\(characterId)/series?&ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)&limit=")
+        return response.data
+    }
+    
     private let networkClient: NetworkClient
 
     init(networkClient: NetworkClient) {

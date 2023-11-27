@@ -22,4 +22,8 @@ struct SeriesRepository {
         try await remoteService.getFilteredSeries(title: title, offset: offset)
     }
     
+    func getSeriesOfCharacter(characterId: Int) async throws -> DataResponse<Serie> {
+        try await remoteService.getSeriesOfCharacter(characterId: characterId)
+    }
+    
 }

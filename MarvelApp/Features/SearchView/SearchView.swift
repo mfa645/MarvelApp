@@ -116,31 +116,31 @@ struct SearchView: View {
         switch selected.lowercased(){
         case "characters" :
             return AnyView(
-                coordinator.makePopularItemsView(items: viewModel.characters) { character in
+                coordinator.makeHorizontalItemsList(items: viewModel.characters) { character in
                     coordinator.makeCharacterDetailView(character: character)
                 }
                 itemView: { character in
-                    coordinator.makePopularItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
+                    coordinator.makeVerticalItem(title: character.name, imageUrl: character.imageUrl, rounded: true)
                 }
                     .frame(height:200)
                     .padding(.top)
             )
         case "series" :
             return AnyView(
-                coordinator.makePopularItemsView(items: viewModel.series) { serie in
+                coordinator.makeHorizontalItemsList(items: viewModel.series) { serie in
                     coordinator.makeSerieDetailView(serie: serie)
                 }
                 itemView: { serie in
-                    coordinator.makePopularItemView(title: serie.title, imageUrl: serie.imageUrl)
+                    coordinator.makeVerticalItem(title: serie.title, imageUrl: serie.imageUrl)
                 }
             )
         default:
             return AnyView(
-                coordinator.makePopularItemsView(items: viewModel.comics) { comic in
+                coordinator.makeHorizontalItemsList(items: viewModel.comics) { comic in
                     coordinator.makeComicDetailView(comic: comic)
                 }
                 itemView: { comic in
-                    coordinator.makePopularItemView(title: comic.title, imageUrl: comic.imageUrl)
+                    coordinator.makeVerticalItem(title: comic.title, imageUrl: comic.imageUrl)
                 }
             )
         }
