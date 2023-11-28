@@ -92,7 +92,7 @@ struct SerieDetailView: View {
                         .task{await viewModel.getCharacters(serieId: serie.id)}
                     
                     if(viewModel.characters.isEmpty){
-                        Text("No series availables for this character")
+                        Text("No characters availables for this serie")
                             .padding(20)
                     }
                     else{

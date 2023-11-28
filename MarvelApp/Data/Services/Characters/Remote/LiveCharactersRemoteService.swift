@@ -7,7 +7,6 @@
 
 import Foundation
 struct LiveCharactersRemoteService: CharactersRemoteService {
-
     private let networkClient: NetworkClient
     
     init(networkClient: NetworkClient) {
@@ -25,6 +24,10 @@ struct LiveCharactersRemoteService: CharactersRemoteService {
     }   
     func getCharactersOfSerie(serieId:Int) async throws -> DataResponse<Character> {
         let response: APIResponse<Character> = try await networkClient.get(url: "\(NetworkConstants.seriesUrl)/\(serieId)/characters?ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)")
+        return response.data
+    }
+    func getCharactersOfComic(comicId: Int) async throws -> DataResponse<Character> {
+        let response: APIResponse<Character> = try await networkClient.get(url: "\(NetworkConstants.comicsUrl)/\(comicId)/characters?ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)")
         return response.data
     }
     

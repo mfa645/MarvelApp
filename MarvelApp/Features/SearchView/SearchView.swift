@@ -98,7 +98,7 @@ struct SearchView: View {
         default:
             return AnyView(
                 coordinator.makeItemsListView(items: viewModel.comics) { comic in
-                    ComicDetailView(comic: comic)
+                    coordinator.makeComicDetailView(comic: comic)
                 }
                 itemView: {comic in
                     Text(comic.title)

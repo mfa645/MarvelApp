@@ -10,4 +10,5 @@ protocol CharactersRemoteService {
     func getCharacters(offset: Int) async throws -> DataResponse<Character>
     func getFilteredCharacters(name:String, offset: Int) async throws -> DataResponse<Character>
     func getCharactersOfSerie(serieId:Int) async throws -> DataResponse<Character>
+    func getCharactersOfComic(comicId:Int) async throws -> DataResponse<Character>
 }
