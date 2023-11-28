@@ -86,14 +86,15 @@ struct HomeView: View {
                                 .foregroundStyle(.white)
                                 .font(.subheadline)
                                 .fontWeight(.bold)
+                                .lineLimit(2)
                             Spacer()
-                        }.frame(height: 60)
+                        }.frame(height: 100)
                         Spacer()
                     }
                     .padding()
                     .background(Color.marvelTertiary.opacity(0.4))
                 }
-                .frame(height:300)
+                .frame(height:350)
                 .background(
                     AsyncImage(url: URL(string: lastEvent.imageUrl)){image in
                         image.image?.resizable()

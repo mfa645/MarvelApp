@@ -22,4 +22,11 @@ struct ComicsRepository {
         try await remoteService.getFilteredComics(title: title, offset: offset)
     }
     
+    func getComicsOfCharacter(characterId: Int) async throws -> DataResponse<Comic> {
+        try await remoteService.getComicsOfCharacter(characterId: characterId)
+    }
+    
+    func getComicsOfSerie(serieId: Int) async throws -> DataResponse<Comic> {
+        try await remoteService.getComicsOfSerie(serieId: serieId)
+    }
 }

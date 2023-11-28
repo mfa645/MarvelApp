@@ -57,27 +57,38 @@ struct CharacterDetailView: View {
                             .padding()
                         
                         HeaderView(text: "COMICS")
+                            .task{await viewModel.getComics(characterId: character.id)}
 
-                        
-                        coordinator.makeHorizontalItemsList(
-                            items: viewModel.comics,
-                            navigationDestination: {comic in
-                                coordinator.makeComicDetailView(comic: comic)},
-                            itemView:{comic in
-                                coordinator.makeVerticalItem(title: comic.title, imageUrl: comic.imageUrl)}
-                        )
-                        .task{await viewModel.getComics()}
+                        if(viewModel.comics.isEmpty){
+                            Text("No comics availables for this character")
+                                .padding(20)
+                        }
+                        else{
+                            coordinator.makeHorizontalItemsList(
+                                items: viewModel.comics,
+                                navigationDestination: {comic in
+                                    coordinator.makeComicDetailView(comic: comic)},
+                                itemView:{comic in
+                                    coordinator.makeVerticalItem(title: comic.title, imageUrl: comic.imageUrl)}
+                            )
+                        }
                         
                         HeaderView(text: "SERIES")
+                            .task{await viewModel.getSeries(characterId: character.id)}
                         
-                        coordinator.makeHorizontalItemsList(
-                            items: viewModel.series,
-                            navigationDestination: {serie in
-                                coordinator.makeSerieDetailView(serie: serie)},
-                            itemView:{serie in
-                                coordinator.makeVerticalItem(title: serie.title, imageUrl: serie.imageUrl)}
-                        )
-                        .task{await viewModel.getSeries(characterId: character.id)}
+                        if(viewModel.series.isEmpty){
+                            Text("No series availables for this character")
+                                .padding(20)
+                        }
+                        else{
+                            coordinator.makeHorizontalItemsList(
+                                items: viewModel.series,
+                                navigationDestination: {serie in
+                                    coordinator.makeSerieDetailView(serie: serie)},
+                                itemView:{serie in
+                                    coordinator.makeVerticalItem(title: serie.title, imageUrl: serie.imageUrl)}
+                            )
+                        }
                         
                         
                         Spacer()

@@ -24,4 +24,13 @@ struct LiveComicsRemoteService: ComicsRemoteService{
         let response: APIResponse<Comic> = try await networkClient.get(url: "\(NetworkConstants.comicsUrl)?titleStartsWith=\(title)&ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)&offset=\(offset)")
         return response.data
     }
+    
+    func getComicsOfCharacter(characterId : Int) async throws -> DataResponse<Comic> {
+        let response: APIResponse<Comic> = try await networkClient.get(url: "\(NetworkConstants.charactersUrl)/\(characterId)/comics?ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)")
+        return response.data
+    }    
+    func getComicsOfSerie(serieId : Int) async throws -> DataResponse<Comic> {
+        let response: APIResponse<Comic> = try await networkClient.get(url: "\(NetworkConstants.seriesUrl)/\(serieId)/comics?ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)")
+        return response.data
+    }
 }

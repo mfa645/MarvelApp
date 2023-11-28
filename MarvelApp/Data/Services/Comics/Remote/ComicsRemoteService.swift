@@ -9,4 +9,6 @@ import Foundation
 protocol ComicsRemoteService {
     func getComics(offset: Int) async throws -> DataResponse<Comic>
     func getFilteredComics(title:String, offset: Int) async throws -> DataResponse<Comic>
+    func getComicsOfCharacter(characterId : Int) async throws -> DataResponse<Comic>
+    func getComicsOfSerie(serieId : Int) async throws -> DataResponse<Comic>
 }

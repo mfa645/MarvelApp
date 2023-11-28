@@ -34,11 +34,11 @@ class CharacterDetailViewModel: ObservableObject{
     }
     
     @MainActor
-    func getComics() async {
+    func getComics(characterId:Int) async {
         isLoading = true
         do {
 
-            comics = try await comicsRepository.getComics(offset : 0).results
+            comics = try await comicsRepository.getComicsOfCharacter(characterId: characterId).results
         } catch {
             showErrorMessage = true
         }

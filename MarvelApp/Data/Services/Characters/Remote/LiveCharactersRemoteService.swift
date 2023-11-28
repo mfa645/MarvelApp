@@ -22,6 +22,10 @@ struct LiveCharactersRemoteService: CharactersRemoteService {
     func getFilteredCharacters(name: String, offset: Int) async throws -> DataResponse<Character> {
         let response: APIResponse<Character> = try await networkClient.get(url: "\(NetworkConstants.charactersUrl)?nameStartsWith=\(name)&ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)&offset=\(offset)")
         return response.data
+    }   
+    func getCharactersOfSerie(serieId:Int) async throws -> DataResponse<Character> {
+        let response: APIResponse<Character> = try await networkClient.get(url: "\(NetworkConstants.seriesUrl)/\(serieId)/characters?ts=\(NetworkConstants.ts)&apikey=\(NetworkConstants.apikey)&hash=\(NetworkConstants.hash)")
+        return response.data
     }
     
 }
