@@ -37,6 +37,8 @@ struct SerieDetailView: View {
                                 .foregroundColor(.marvelPrimary.opacity(0.7))
                                 .multilineTextAlignment(.center)
                                 .lineLimit(3)
+                                .shadow(color:.marvelSecondary, radius: 10)
+
                             Spacer()
                         }
                         .background(Color.marvelTertiary.opacity(0.80))

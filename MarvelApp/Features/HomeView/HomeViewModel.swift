@@ -44,36 +44,17 @@ class HomeViewModel : ObservableObject{
     func getSeries() async {
         isLoading = true
         do {
-
-            series = try await seriesRepository.getSeries(offset : 0).results
+            series = try await seriesRepository.getSeries(offset : 10).results
         } catch {
             showErrorMessage = true
         }
         isLoading = false
-    }
-    
+    }    
     @MainActor
-    func getComics(enablePaging: Bool = false) async {
-        if(!enablePaging){
-            comics.removeAll()
-            offset = 0
-            maxPages = false
-        }
-        if(maxPages){
-            return
-        }
+    func getComics() async {
         isLoading = true
         do {
-            let comicsResponse = try await comicsRepository.getComics(offset : offset)
-            total = comicsResponse.total
-            offset = comicsResponse.offset
-            count = comicsResponse.count
-            
-            if(total == offset || count == 0){
-                maxPages = true
-            }
-            offset == 0 ? comics = comicsResponse.results : comics.append(contentsOf: comicsResponse.results)
-            offset += count
+            comics = try await comicsRepository.getComics(offset : 10).results
         } catch {
             showErrorMessage = true
         }

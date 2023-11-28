@@ -21,29 +21,34 @@ struct ComicDetailView: View {
         NavigationStack{
             ScrollView{
                 VStack(spacing:0){
-                    HStack{
-                        Spacer()
-                        VStack{
-                            Spacer()
+                    HStack(alignment: .top){
                             AsyncImage(
                                 url: URL(string: comic.imageUrl)
                             ){image in
                                 image.image?.resizable()
                                     .scaledToFit()
-                                    .frame(width:200)
+                                    .frame(width:150)
+                                    .shadow(color: .black, radius: 10)
                             }
+                        VStack(alignment:.leading, spacing: 10){
                             Text(comic.title)
-                                .font(.title)
+                                .font(.title2)
                                 .fontWeight(.bold)
                                 .padding(.top)
                                 .foregroundColor(.white)
-                        }.frame(height: 300)
+                                .shadow(color:.black,radius: 10)
+                            makeSectionTitle(text: "\(comic.pageCount) Pages", systemNameImage: "book.pages")
+                            makeSectionTitle(text: "Format: \(!comic.format.isEmpty ? comic.format : "NA")", systemNameImage: "text.book.closed")
+                        }
                         Spacer()
                     }
+                    .padding(.horizontal)
+                    .padding(.top, 50)
+                    .padding(.bottom, 20)
                     .background(Image("marvelWallpaper")
                         .resizable()
                         .scaledToFill()
-                        .overlay(.black.opacity(0.7))
+                        .overlay(Color.red.opacity(0.65))
                     )
                     
                     VStack(alignment: .leading, spacing: 0){
@@ -52,9 +57,21 @@ struct ComicDetailView: View {
                             .font(.headline)
                             .foregroundStyle(.marvelRed)
                             .padding()
-                        Text( !comic.title.isEmpty ? comic.title : "The character's description is unavailable")
-                            .padding(.horizontal)
-                            .padding(.bottom)
+                        if(!comic.variantDescription.isEmpty){
+                            Text(comic.variantDescription)
+                                .fontWeight(.bold)
+                                .font(.headline)
+                                .foregroundStyle(.marvelPrimary.opacity(0.5))
+                                .padding(.horizontal)
+                                .padding(.bottom,5)
+                        }
+                        if let description = comic.description{
+                            Text( !description.isEmpty ? description : "The comic's description is unavailable")
+                                .padding(.horizontal)
+                                .padding(.bottom,40)
+                        }else{
+                            Text("No comic description found")
+                        }
                         
                         HeaderView(text: "CHARACTERS")
                             .task{await viewModel.getCharacters(comicId: comic.id)}
@@ -73,9 +90,22 @@ struct ComicDetailView: View {
                             )
                         }
                     }
+                    .background(.marvelSecondary.opacity(0.5))
+
                 }
             }
+            .ignoresSafeArea(edges: .top)
+            .ignoresSafeArea(edges: .horizontal)
         }
+
+    }
+    private func makeSectionTitle(text: String, systemNameImage:String)->some View{
+        Label(
+            title: { Text(text)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold) },
+            icon: { Image(systemName: systemNameImage).tint(.white) }
+        )
     }
 }
 

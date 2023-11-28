@@ -47,6 +47,8 @@ struct SearchView: View {
         }.onAppear {
             fetchItems()
         }
+        .padding(.top, 100)
+        .ignoresSafeArea(edges: .top)
     }
     
     func fetchItems(enablePaging: Bool = false){
