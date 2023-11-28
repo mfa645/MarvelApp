@@ -26,11 +26,11 @@ struct HomeView: View {
                     makePaginatedTab()
                     
                     VStack{
-                        makeSectionHeader(text: "COMICS")
+                        HeaderView(text: "COMICS")
                         
                         makeComicsList()
                         
-                        makeSectionHeader(text: "SERIES")
+                        HeaderView(text: "SERIES")
                         
                         makeSeriesList()
                     }
@@ -106,28 +106,6 @@ struct HomeView: View {
         }
         .frame(height:300)
         .tabViewStyle(PageTabViewStyle())
-    }
-    
-    private func makeSectionHeader(text: String) -> some View{
-        HStack {
-            Text(text)
-                .font(.headline)
-                .foregroundStyle(.marvelPrimary)
-                .bold()
-            Spacer()
-            NavigationLink {
-                coordinator.makeSearchView(selected: text == "COMICS" ? SearchTypeFilters.comics.rawValue : SearchTypeFilters.series.rawValue)
-            } label: {
-                Label(
-                    title: { Text("VIEW ALL").font(.subheadline) },
-                    icon: { Image(systemName: "chevron.right.2").foregroundStyle(.marvelRed).font(.footnote) }
-                )
-                .labelStyle(TrailingIconLabelStyle())
-                .bold()
-            }.foregroundStyle(.marvelPrimary)
-        }
-        .padding()
-        .background(.marvelSecondary)
     }
 }
 #Preview {

@@ -39,7 +39,8 @@ struct ContentView: View {
                         title: { Text("SAVED CHARACTERS").bold() },
                         icon: { Image("ironman").renderingMode(.template).resizable().scaledToFit().scaleEffect().tint(.white.opacity(0.7))
                         }
-                    ).padding()                }
+                    ).padding()
+                }
         }
         .tint(.red)
     }

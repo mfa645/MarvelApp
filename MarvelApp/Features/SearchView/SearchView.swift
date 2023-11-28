@@ -12,17 +12,27 @@ struct SearchView: View {
     @StateObject private var viewModel: SearchViewModel
     @StateObject var textObserver = TextFieldObserver()
     @State private var selected : String
+    let toolBarVisible : Bool
     
-    init(viewModel: SearchViewModel, selected : String = SearchTypeFilters.characters.rawValue) {
+    init(viewModel: SearchViewModel, selected : String = SearchTypeFilters.characters.rawValue, toolBarVisible: Bool = false) {
         _viewModel = StateObject(wrappedValue: viewModel)
         _selected = State(wrappedValue: selected)
+        self.toolBarVisible = toolBarVisible
     }
     
     var body: some View {
         NavigationStack {
             VStack(){
                 CustomSegmentedPicker<SearchTypeFilters>(sourcesEnum: SearchTypeFilters.self, selection: $selected)
+                    .if(toolBarVisible) { view in
+                        view.toolbar{
+                            ToolbarItem(placement: .principal) {
+                                Image("marvelLogo").resizable().scaledToFit().scaleEffect(2).tint(.white.opacity(0.7)).padding(.trailing)
+                            }
+                        }
+                    }
                 makePopularItemsView()
+                
                 VStack{
                     CustomSearchBar(
                         searchFilter: $textObserver.searchText,
@@ -47,8 +57,6 @@ struct SearchView: View {
         }.onAppear {
             fetchItems()
         }
-        .padding(.top, 100)
-        .ignoresSafeArea(edges: .top)
     }
     
     func fetchItems(enablePaging: Bool = false){

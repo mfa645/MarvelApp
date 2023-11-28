@@ -18,7 +18,8 @@ class Coordinator: ObservableObject {
         let networkClient = URLSessionNetworkClient()
         
         let charactersRemoteService: CharactersRemoteService = mock ? MockCharactersRemoteService() : LiveCharactersRemoteService(networkClient: networkClient)
-        charactersRepository = CharactersRepository(remoteService: charactersRemoteService)        
+        let charactersLocalService: CharactersLocalService = mock ? MockCharactersLocalService() : UserDefaultsCharactersLocalService()
+        charactersRepository = CharactersRepository(remoteService: charactersRemoteService, localService: charactersLocalService)
         
         let comicsRemoteService: ComicsRemoteService = mock ? MockComicsRemoteService() : LiveComicsRemoteService(networkClient: networkClient)
         comicsRepository = ComicsRepository(remoteService: comicsRemoteService)
@@ -42,8 +43,8 @@ class Coordinator: ObservableObject {
     
     //MARK: - SearchView
     
-    func makeSearchView(selected: String = SearchTypeFilters.characters.rawValue) -> SearchView {
-        SearchView(viewModel: makeSearchViewModel(), selected: selected)
+    func makeSearchView(toolBarVisible: Bool = false,selected: String = SearchTypeFilters.characters.rawValue) -> SearchView {
+        SearchView(viewModel: makeSearchViewModel(), selected: selected, toolBarVisible: toolBarVisible)
     }
     
     private func makeSearchViewModel() -> SearchViewModel{
@@ -76,7 +77,6 @@ class Coordinator: ObservableObject {
     func makeSerieDetailViewModel() -> SerieDetailViewModel{
         .init(comicsRepository: comicsRepository, charactersRepository: charactersRepository)
     }
-    
     
     func makeComicDetailView(comic: Comic) -> ComicDetailView {
         .init(viewModel: makeComicViewModel(), comic: comic)

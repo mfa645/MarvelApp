@@ -19,11 +19,11 @@ struct HeaderView: View {
             Spacer()
             NavigationLink {
                 switch(text){
-                case "COMICS" :coordinator.makeSearchView(selected: SearchTypeFilters.comics.rawValue)
-                case "SERIES": coordinator.makeSearchView(selected:SearchTypeFilters.series.rawValue)
-                case "CHARACTERS": coordinator.makeSearchView(selected:SearchTypeFilters.characters.rawValue)
+                case "COMICS" :coordinator.makeSearchView(toolBarVisible: true, selected: SearchTypeFilters.comics.rawValue)
+                case "SERIES": coordinator.makeSearchView(toolBarVisible: true, selected:SearchTypeFilters.series.rawValue)
+                case "CHARACTERS": coordinator.makeSearchView(toolBarVisible: true, selected:SearchTypeFilters.characters.rawValue)
                 default:
-                    coordinator.makeSearchView(selected: SearchTypeFilters.characters.rawValue)
+                    coordinator.makeSearchView(toolBarVisible: true, selected: SearchTypeFilters.characters.rawValue)
                 }
             } label: {
                 Label(

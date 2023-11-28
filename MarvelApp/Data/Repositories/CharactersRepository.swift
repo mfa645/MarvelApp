@@ -9,9 +9,11 @@ import Foundation
 
 struct CharactersRepository {
     private let remoteService: CharactersRemoteService
+    private let localService: CharactersLocalService
     
-    init(remoteService: CharactersRemoteService) {
+    init(remoteService: CharactersRemoteService, localService: CharactersLocalService) {
         self.remoteService = remoteService
+        self.localService = localService
     }
     
     func getCharacters(offset: Int) async throws -> DataResponse<Character> {
@@ -28,5 +30,15 @@ struct CharactersRepository {
     
     func getCharactersOfComic(comicId: Int) async throws -> DataResponse<Character> {
         try await remoteService.getCharactersOfComic(comicId: comicId)
+    }
+    
+    func getCharacters() throws -> [Character]{
+        try localService.getCharacters()
+    }
+    func saveCharacter(character: Character) throws {
+        try localService.saveCharacter(character: character)
+    }
+    func deleteCharacter(characterId: Int) throws{
+        try localService.deleteCharacter(characterId: characterId)
     }
 }
