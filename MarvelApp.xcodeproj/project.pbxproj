@@ -22,10 +22,14 @@
 		9A37E48F2B052E22002ACDC4 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37E48E2B052E22002ACDC4 /* ViewExtensions.swift */; };
 		9A4050052B0667C30023C72F /* ComicDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4050042B0667C30023C72F /* ComicDetailView.swift */; };
 		9A4050072B0667E20023C72F /* SerieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4050062B0667E20023C72F /* SerieDetailView.swift */; };
+		9A44825A2B168D880030618D /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4482592B168D880030618D /* FavouritesView.swift */; };
+		9A44825C2B168D9F0030618D /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A44825B2B168D9F0030618D /* FavouritesViewModel.swift */; };
+		9A44825E2B1699560030618D /* CustomCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A44825D2B1699560030618D /* CustomCarousel.swift */; };
 		9A4691E22B03F8AE00D196F5 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4691E12B03F8AE00D196F5 /* Comic.swift */; };
 		9A6F3B352B14900800E66362 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3B342B14900800E66362 /* HeaderView.swift */; };
 		9A70A1672B0B6DE2008AAAFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70A1662B0B6DE2008AAAFF /* HomeView.swift */; };
 		9A70A1692B0B6DF2008AAAFF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70A1682B0B6DF2008AAAFF /* HomeViewModel.swift */; };
+		9A7111372B1683A400C296C3 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 9A7111362B1683A400C296C3 /* AlertToast */; };
 		9A717D9C2B0BBEE800E0F0DD /* EventsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A717D9B2B0BBEE800E0F0DD /* EventsRepository.swift */; };
 		9A717D9E2B0BBF6300E0F0DD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A717D9D2B0BBF6300E0F0DD /* Event.swift */; };
 		9A717DA02B0BC04300E0F0DD /* EventsRemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A717D9F2B0BC04300E0F0DD /* EventsRemoteService.swift */; };
@@ -77,6 +81,9 @@
 		9A37E48E2B052E22002ACDC4 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		9A4050042B0667C30023C72F /* ComicDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailView.swift; sourceTree = "<group>"; };
 		9A4050062B0667E20023C72F /* SerieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerieDetailView.swift; sourceTree = "<group>"; };
+		9A4482592B168D880030618D /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
+		9A44825B2B168D9F0030618D /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
+		9A44825D2B1699560030618D /* CustomCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCarousel.swift; sourceTree = "<group>"; };
 		9A4691E12B03F8AE00D196F5 /* Comic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comic.swift; sourceTree = "<group>"; };
 		9A6F3B342B14900800E66362 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		9A70A1662B0B6DE2008AAAFF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -122,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A7111372B1683A400C296C3 /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +198,15 @@
 				9ABCF15C2B0E1CDB00A519D1 /* ComicDetailViewModel.swift */,
 			);
 			path = ComicDetailVIew;
+			sourceTree = "<group>";
+		};
+		9A4482582B168D5D0030618D /* FavouritesView */ = {
+			isa = PBXGroup;
+			children = (
+				9A4482592B168D880030618D /* FavouritesView.swift */,
+				9A44825B2B168D9F0030618D /* FavouritesViewModel.swift */,
+			);
+			path = FavouritesView;
 			sourceTree = "<group>";
 		};
 		9A62BF152B0BD11A00686050 /* Remote */ = {
@@ -340,6 +357,7 @@
 		9A913AFA2B0278C300167221 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				9A4482582B168D5D0030618D /* FavouritesView */,
 				9A70A1652B0B6DCD008AAAFF /* HomeView */,
 				9A4050032B0667AD0023C72F /* ComicDetailVIew */,
 				9A4050022B0667A20023C72F /* SerieDetailView */,
@@ -367,6 +385,7 @@
 				9A913B022B02821900167221 /* CustomSegmentedPicker.swift */,
 				9A869B232B036BB10090BE76 /* CustomSearchBar.swift */,
 				9A6F3B342B14900800E66362 /* HeaderView.swift */,
+				9A44825D2B1699560030618D /* CustomCarousel.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -419,6 +438,9 @@
 			dependencies = (
 			);
 			name = MarvelApp;
+			packageProductDependencies = (
+				9A7111362B1683A400C296C3 /* AlertToast */,
+			);
 			productName = MarvelApp;
 			productReference = 9A7F21462B0218E000EE9A46 /* MarvelApp.app */;
 			productType = "com.apple.product-type.application";
@@ -447,6 +469,9 @@
 				Base,
 			);
 			mainGroup = 9A7F213D2B0218E000EE9A46;
+			packageReferences = (
+				9A7111352B1683A400C296C3 /* XCRemoteSwiftPackageReference "AlertToast" */,
+			);
 			productRefGroup = 9A7F21472B0218E000EE9A46 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -481,6 +506,7 @@
 				9A37E47F2B05210F002ACDC4 /* MockSeriesRemoteService.swift in Sources */,
 				9A869B242B036BB10090BE76 /* CustomSearchBar.swift in Sources */,
 				9A717D9C2B0BBEE800E0F0DD /* EventsRepository.swift in Sources */,
+				9A44825C2B168D9F0030618D /* FavouritesViewModel.swift in Sources */,
 				9A717D9E2B0BBF6300E0F0DD /* Event.swift in Sources */,
 				9A37E47A2B051FB8002ACDC4 /* Serie.swift in Sources */,
 				9A913B072B02919700167221 /* Character.swift in Sources */,
@@ -492,6 +518,7 @@
 				9A37E48F2B052E22002ACDC4 /* ViewExtensions.swift in Sources */,
 				9A4050052B0667C30023C72F /* ComicDetailView.swift in Sources */,
 				9A913B0D2B02965100167221 /* MockCharactersRemoteService.swift in Sources */,
+				9A44825A2B168D880030618D /* FavouritesView.swift in Sources */,
 				9A717DA02B0BC04300E0F0DD /* EventsRemoteService.swift in Sources */,
 				9ABCF15F2B0E1CEE00A519D1 /* SerieDetailViewModel.swift in Sources */,
 				9A913B092B0291AC00167221 /* APIResponse.swift in Sources */,
@@ -509,6 +536,7 @@
 				9A7F214A2B0218E000EE9A46 /* MarvelAppApp.swift in Sources */,
 				9ABCF1612B0E1D0100A519D1 /* CharacterDetailViewModel.swift in Sources */,
 				9AE8D1A72B0CA1000010B635 /* TextFieldObserver.swift in Sources */,
+				9A44825E2B1699560030618D /* CustomCarousel.swift in Sources */,
 				9ABCF15D2B0E1CDB00A519D1 /* ComicDetailViewModel.swift in Sources */,
 				9A913B152B029BDB00167221 /* Coordinator.swift in Sources */,
 				9A37E48C2B052945002ACDC4 /* VerticalItemView.swift in Sources */,
@@ -728,6 +756,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9A7111352B1683A400C296C3 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9A7111362B1683A400C296C3 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A7111352B1683A400C296C3 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9A7F213E2B0218E000EE9A46 /* Project object */;
 }

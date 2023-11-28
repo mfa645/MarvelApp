@@ -5,12 +5,14 @@
 //  Created by user242581 on 14/11/23.
 //
 
+import AlertToast
 import SwiftUI
 
 struct CharacterDetailView: View {
     @EnvironmentObject var coordinator: Coordinator
     @StateObject private var viewModel: CharacterDetailViewModel
-    @State var isFavorite : Bool = false
+    @State private var showToast = false
+
     let character : Character
     init(viewModel: CharacterDetailViewModel, character: Character) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -97,17 +99,35 @@ struct CharacterDetailView: View {
                         
                         Spacer()
                     }
+                    .toast(isPresenting: $showToast){
+                        if(viewModel.isFavourite){
+                            AlertToast(type: .regular, title: "Character removed from favourite list")
+                        }
+                        else{
+                            AlertToast(type: .regular, title: "Character added to favourite list")
+                        }
+                    }
                     .background(.marvelSecondary.opacity(0.5))
                 }
+            }
+            .onAppear{
+                viewModel.setIsFavourite(characterId: character.id)
             }
             .ignoresSafeArea(edges: .top)
             .ignoresSafeArea(edges: .horizontal)
             .toolbar(content: {
                 Button(
                     action: {
-                        isFavorite.toggle()
+                        showToast = true
+                        if(viewModel.isFavourite){
+                            viewModel.removeFromFavourites(characterId: character.id)
+
+                        }else{
+                            viewModel.addToFavourites(character: character)
+                        }
+
                     }, label: {
-                        Image(systemName: !isFavorite ? "bookmark" : "bookmark.fill").tint(.marvelRed).font(.title2)
+                        Image(systemName: !viewModel.isFavourite ? "bookmark" : "bookmark.fill").tint(.marvelRed).font(.title2)
                     }
                 )
             })

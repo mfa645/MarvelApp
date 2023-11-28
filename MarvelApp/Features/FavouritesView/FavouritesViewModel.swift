@@ -1,12 +1,12 @@
 //
-//  ComicDetailViewModel.swift
+//  FavouritesViewModel.swift
 //  MarvelApp
 //
-//  Created by user242581 on 22/11/23.
+//  Created by user242581 on 28/11/23.
 //
 
 import Foundation
-class ComicDetailViewModel: ObservableObject{
+class FavouritesViewModel : ObservableObject{
     private let charactersRepository: CharactersRepository
     
     @Published var characters = [Character]()
@@ -19,11 +19,10 @@ class ComicDetailViewModel: ObservableObject{
     }
     
     @MainActor
-    func getCharacters(comicId:Int) async {
+    func getCharacters() {
         isLoading = true
         do {
-
-            characters = try await charactersRepository.getCharactersOfComic(comicId: comicId).results
+            characters = try charactersRepository.getFavouriteCharacters()
         } catch {
             showErrorMessage = true
         }

@@ -36,7 +36,7 @@ struct ContentView: View {
             coordinator.makeSearchView()
                 .tabItem{
                     Label(
-                        title: { Text("SAVED CHARACTERS").bold() },
+                        title: { Text("FAVOURITES").bold() },
                         icon: { Image("ironman").renderingMode(.template).resizable().scaledToFit().scaleEffect().tint(.white.opacity(0.7))
                         }
                     ).padding()
@@ -46,6 +46,6 @@ struct ContentView: View {
     }
 }
 #Preview {
-    let coordinator = Coordinator(mock: false)
+    let coordinator = Coordinator(mock: true)
     return ContentView().environmentObject(coordinator)
 }

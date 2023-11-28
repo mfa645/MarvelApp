@@ -32,13 +32,13 @@ struct CharactersRepository {
         try await remoteService.getCharactersOfComic(comicId: comicId)
     }
     
-    func getCharacters() throws -> [Character]{
+    func getFavouriteCharacters() throws -> [Character]{
         try localService.getCharacters()
     }
-    func saveCharacter(character: Character) throws {
+    func saveFavouriteCharacter(character: Character) throws {
         try localService.saveCharacter(character: character)
     }
-    func deleteCharacter(characterId: Int) throws{
+    func deleteFavouriteCharacter(characterId: Int) throws{
         try localService.deleteCharacter(characterId: characterId)
     }
 }

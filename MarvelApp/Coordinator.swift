@@ -90,7 +90,15 @@ class Coordinator: ObservableObject {
         .init(viewModel: makeCharacterDetailViewModel(), character: character)
     }
     func makeCharacterDetailViewModel() -> CharacterDetailViewModel{
-        .init(comicsRepository: comicsRepository, seriesRepository: seriesRepository)
+        .init(comicsRepository: comicsRepository, seriesRepository: seriesRepository, charactersRepository: charactersRepository)
+    }
+    
+    
+    func makeFavouritesView() -> FavouritesView {
+        .init(viewModel: makeFavouritesViewModel())
+    }
+    func makeFavouritesViewModel() -> FavouritesViewModel{
+        .init( charactersRepository: charactersRepository)
     }
     
 }
