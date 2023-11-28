@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Foundation
 class SerieDetailViewModel: ObservableObject{
     private let comicsRepository: ComicsRepository
     private let charactersRepository: CharactersRepository

@@ -71,8 +71,13 @@ class Coordinator: ObservableObject {
     
     //MARK: Details
     func makeSerieDetailView(serie: Serie) -> SerieDetailView {
-        .init(serie: serie)
-    }    
+        .init(viewModel: makeSerieDetailViewModel(), serie: serie)
+    }
+    func makeSerieDetailViewModel() -> SerieDetailViewModel{
+        .init(comicsRepository: comicsRepository, charactersRepository: charactersRepository)
+    }
+    
+    
     func makeComicDetailView(comic: Comic) -> ComicDetailView {
         .init(comic: comic)
     }

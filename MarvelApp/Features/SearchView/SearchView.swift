@@ -84,7 +84,7 @@ struct SearchView: View {
         case "series" :
             return AnyView(
                 coordinator.makeItemsListView(items: viewModel.series) { serie in
-                    SerieDetailView(serie: serie)
+                    coordinator.makeSerieDetailView(serie: serie)
                 }
                 itemView: {serie in
                     Text(serie.title)

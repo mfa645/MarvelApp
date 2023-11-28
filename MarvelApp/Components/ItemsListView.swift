@@ -38,8 +38,9 @@ struct ItemsListView<Item: Identifiable, Destination:View, ItemView:View>: View 
 }
 
 #Preview {
-    ItemsListView(items: [Serie.example,.example,.example,.example,.example,.example,]) { serie in
-        SerieDetailView(serie: serie)
+    let coordinator = Coordinator(mock: true)
+   return ItemsListView(items: [Serie.example,.example,.example,.example,.example,.example,]) { serie in
+        coordinator.makeSerieDetailView(serie: serie)
     } itemView: {serie in
         Text(serie.title)
     } onListAppendNeeded: {itemId in

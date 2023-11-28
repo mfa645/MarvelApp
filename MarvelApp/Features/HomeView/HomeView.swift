@@ -64,7 +64,7 @@ struct HomeView: View {
     
     private func makeSeriesList() -> some View{
         return coordinator.makeHorizontalItemsList(items: viewModel.series, navigationDestination:{ serie in
-            SerieDetailView(serie: serie)
+            coordinator.makeSerieDetailView(serie: serie)
         }, itemView: { serie in
             VerticalItemView(title: serie.title, imageUrl: serie.imageUrl, rounded: false)
         })

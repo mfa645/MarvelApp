@@ -54,7 +54,8 @@ struct CharacterDetailView: View {
                             .foregroundStyle(.marvelRed)
                             .padding()
                         Text( !character.description.isEmpty ? character.description : "The character's description is unavailable")
-                            .padding()
+                            .padding(.horizontal)
+                            .padding(.bottom)
                         
                         HeaderView(text: "COMICS")
                             .task{await viewModel.getComics(characterId: character.id)}
