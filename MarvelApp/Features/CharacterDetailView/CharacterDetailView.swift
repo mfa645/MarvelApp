@@ -31,19 +31,23 @@ struct CharacterDetailView: View {
                                 url: URL(string: character.imageUrl)
                             ){image in
                                 image.image?.resizable()
-                                    .scaledToFit()
+                                    .scaledToFill()
                                     .frame(width:200)
+                                    .frame(maxHeight:180)
                                     .clipShape(.circle)
                                     .shadow(color:.black, radius: 10)
+                                    .padding(.top, 50)
+
                             }
                             Text(character.name)
                                 .font(.title)
                                 .fontWeight(.bold)
-                                .padding(.top)
                                 .foregroundColor(.white)
                                 .shadow(color:.black, radius: 10)
-                            
-                        }.frame(height: 300)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.center)
+                            Spacer()
+                        }.frame(height: 340)
                         Spacer()
                     }
                     .background(Image("marvelWallpaper")
@@ -94,8 +98,6 @@ struct CharacterDetailView: View {
                                     coordinator.makeVerticalItem(title: serie.title, imageUrl: serie.imageUrl)}
                             )
                         }
-                        
-                        
                         Spacer()
                     }
                     .toast(isPresenting: $viewModel.showErrorMessage, alert: {

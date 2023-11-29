@@ -49,13 +49,12 @@ struct CustomCarousel<Content: View, Destination:View, Item> : View where Item: 
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 navigationItem = item
-                                self.index = indexOf(item: item)
-                            }
-                            .navigationDestination(item: $navigationItem) { navigationItem in
-                                navigationDestination(navigationItem)
                             }
                     }
 
+
+                }                    .navigationDestination(item: $navigationItem) { navigationItem in
+                    navigationDestination(navigationItem)
                 }
                 .padding(.horizontal, spacing)
                 .offset(x:limitScroll())
@@ -137,14 +136,7 @@ struct CustomCarousel<Content: View, Destination:View, Item> : View where Item: 
     return CustomCarousel(index: $currentIndex, items: [Character.example], navigationDestination: { character in
         coordinator.makeCharacterDetailView(character: character)
     }) { character, cardSize in
-        AsyncImage(
-            url: URL(string: character.imageUrl)
-        ){image in
-            image.image?.resizable()
-                .scaledToFill()
-                .frame(width:cardSize.width, height: cardSize.height)
-                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                .shadow(color: .black, radius: 10)
+        FavouriteCard(character: character, cardSize: cardSize)
         }
-    }.environmentObject(coordinator)
+    .environmentObject(coordinator)
 }

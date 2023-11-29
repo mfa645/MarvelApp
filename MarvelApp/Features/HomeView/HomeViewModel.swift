@@ -19,10 +19,7 @@ class HomeViewModel : ObservableObject{
     @Published var showErrorMessage = false
     @Published var isLoading = false
     
-    private var maxPages = false
-    private var total = -1
-    private var offset = 0
-    private var count = -1
+    var randomOffset = 0
 
     init(comicsRepository: ComicsRepository, seriesRepository: SeriesRepository, eventsRepository: EventsRepository) {
         self.comicsRepository = comicsRepository
@@ -60,5 +57,4 @@ class HomeViewModel : ObservableObject{
         }
         isLoading = false
     }
-    
 }

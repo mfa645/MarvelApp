@@ -12,6 +12,7 @@ struct SerieDetailView: View {
     @EnvironmentObject var coordinator: Coordinator
     @StateObject private var viewModel: SerieDetailViewModel
     let serie :Serie
+    
     init(viewModel: SerieDetailViewModel, serie: Serie) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.serie = serie
@@ -51,6 +52,7 @@ struct SerieDetailView: View {
                         }
                     else{
                         Text("No serie description found")
+                            .padding(.horizontal)
                     }
                     HStack(alignment: .top){
                         
@@ -147,4 +149,14 @@ struct SerieDetailView: View {
 
 #Preview {
     let coordinator = Coordinator(mock: true)
-    return coordinator.makeSerieDetailView(serie: .example).environmentObject(coordinator)}
+    return coordinator.makeSerieDetailView(serie: .init(
+        id: 11,
+        title: "Official Handbook of the Marvel Universe (2004) #11 (X-MEN - AGE OF APOCALYPSE)",
+        thumbnail: ["path" :  "http://i.annihil.us/u/prod/marvel/i/mg/1/00/51644d6b47668","extension" : "jpg"],
+        description: "In the wake of Arno Stark’s crusade against A.I.s, no robot is safe. Fearing of Elsie Dee’s safety in these tumultuous times, Albert, the robot Wolverine, goes to Madripoor to find her…but what he finds is a fight against Madripoor’s criminal underbelly instead! ",
+        startYear: 2020,
+        endYear: 2021,
+        rating: "Rated - T",
+        type: "one shot"
+    )).environmentObject(coordinator)
+}

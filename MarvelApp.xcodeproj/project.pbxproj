@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A2365F02B17A56500990A91 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2365EF2B17A56500990A91 /* SplashScreenView.swift */; };
 		9A2B4BA32B035EDC00FB3BAA /* HorizontalItemsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2B4BA22B035EDC00FB3BAA /* HorizontalItemsList.swift */; };
 		9A2B4BA62B03658200FB3BAA /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2B4BA52B03658200FB3BAA /* CharacterDetailView.swift */; };
 		9A2E59B72B17700100A9F0BD /* FavouriteCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E59B62B17700100A9F0BD /* FavouriteCard.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A2365EF2B17A56500990A91 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		9A2B4BA22B035EDC00FB3BAA /* HorizontalItemsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalItemsList.swift; sourceTree = "<group>"; };
 		9A2B4BA52B03658200FB3BAA /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		9A2E59B62B17700100A9F0BD /* FavouriteCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCard.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				9A70A16A2B0B833C008AAAFF /* Observers */,
 				9A7F21492B0218E000EE9A46 /* MarvelAppApp.swift */,
 				9A7F214B2B0218E000EE9A46 /* ContentView.swift */,
+				9A2365EF2B17A56500990A91 /* SplashScreenView.swift */,
 				9A913B142B029BDB00167221 /* Coordinator.swift */,
 				9A913B042B02822000167221 /* Components */,
 				9A913AFA2B0278C300167221 /* Features */,
@@ -538,6 +541,7 @@
 				9ACEEEB32B06634B00AF9AB0 /* SeriesRepository.swift in Sources */,
 				9A2E59B72B17700100A9F0BD /* FavouriteCard.swift in Sources */,
 				9A7F214A2B0218E000EE9A46 /* MarvelAppApp.swift in Sources */,
+				9A2365F02B17A56500990A91 /* SplashScreenView.swift in Sources */,
 				9ABCF1612B0E1D0100A519D1 /* CharacterDetailViewModel.swift in Sources */,
 				9AE8D1A72B0CA1000010B635 /* TextFieldObserver.swift in Sources */,
 				9A44825E2B1699560030618D /* CustomCarousel.swift in Sources */,

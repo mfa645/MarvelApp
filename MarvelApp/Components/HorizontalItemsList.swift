@@ -40,10 +40,10 @@ struct HorizontalItemsList<Item: Identifiable, Destination:View, ItemView:View>:
 #Preview {
     let coordinator = Coordinator(mock: false)
     
-    return coordinator.makeHorizontalItemsList(items: [Serie.example], navigationDestination:{ serie in
-        coordinator.makeSerieDetailView(serie: serie)
-    }, itemView: { serie in
-        VerticalItemView(title: serie.title, imageUrl: serie.imageUrl, rounded: false)
+    return coordinator.makeHorizontalItemsList(items: [Character.example], navigationDestination:{ character in
+        coordinator.makeCharacterDetailView(character: character)
+    }, itemView: { character in
+        VerticalItemView(title: character.name, imageUrl: character.imageUrl, rounded: true)
     })
 
 }

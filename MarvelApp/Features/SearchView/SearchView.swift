@@ -46,18 +46,18 @@ struct SearchView: View {
                     if(viewModel.isLoading){
                         ProgressView().tint(.red)
                     }
+                }.onChange(of: textObserver.debouncedText, initial: true){
+                    fetchItems()
+                }
+                .onChange(of: selected) {
+                    fetchItems()
                 }
                 .background(.marvelSecondary)
                 .toast(isPresenting: $viewModel.showErrorMessage, alert: {
                     AlertToast(type: .regular, title: " (!) An error ocurred")
                 })
             }
-            .onChange(of: textObserver.debouncedText, initial: true){
-                fetchItems()
-            }
-            .onChange(of: selected) {
-                fetchItems()
-            }
+
         }.onAppear {
             fetchItems()
         }

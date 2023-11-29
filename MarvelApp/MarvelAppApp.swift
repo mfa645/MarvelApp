@@ -10,9 +10,15 @@ import SwiftUI
 @main
 struct MarvelAppApp: App {
     let coordinator = Coordinator(mock: false)
+    @State var splashScreenActive = true
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(coordinator)
+            if splashScreenActive{
+                SplashScreenView(isActive: $splashScreenActive)
+            }else{
+                ContentView()
+                    .environmentObject(coordinator)
+            }
         }
     }
 }

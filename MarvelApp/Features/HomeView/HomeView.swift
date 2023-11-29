@@ -117,7 +117,7 @@ struct HomeView: View {
     }
 }
 #Preview {
-    let coordinator = Coordinator(mock: true)
+    let coordinator = Coordinator(mock: false)
     return coordinator.makeHomeView().environmentObject(coordinator)
 }
 

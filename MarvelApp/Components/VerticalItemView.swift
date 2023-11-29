@@ -20,6 +20,7 @@ struct VerticalItemView: View {
             .frame(maxWidth: 120,maxHeight: 180)
             .if(rounded){view in
                 view.clipShape(.circle)
+                    .frame(maxHeight:120)
             }
             
             Text(title)

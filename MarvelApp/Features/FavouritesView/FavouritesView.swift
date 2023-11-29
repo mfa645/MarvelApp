@@ -26,7 +26,7 @@ struct FavouritesView: View {
                 .font(.title3)
                 .toolbar{
                     ToolbarItem(placement: .principal) {
-                        Image("marvelLogo").resizable().renderingMode(.template).scaledToFit().scaleEffect(2).foregroundStyle(.marvelRed.opacity(0.7)).padding(.trailing)
+                        Image("marvelLogo").resizable().renderingMode(.template).scaledToFit().scaleEffect(2).foregroundStyle(.marvelRed.opacity(0.9)).padding(.trailing)
                     }
                 }
             VStack(){
