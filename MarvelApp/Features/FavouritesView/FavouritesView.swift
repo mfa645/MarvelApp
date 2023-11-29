@@ -44,7 +44,7 @@ struct FavouritesView: View {
         NavigationStack{
             VStack{
                 if(!characters.isEmpty){
-                    CustomCarousel(index: $currentIndex, items: characters,cardPadding: 150, id: \.id) { character, cardSize in
+                    CustomCarousel(index: $currentIndex, items: characters,cardPadding: 150) { character, cardSize in
                         AsyncImage(
                             url: URL(string: character.imageUrl)
                         ){image in
