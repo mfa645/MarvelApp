@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct HomeView: View {
     @EnvironmentObject var coordinator: Coordinator
@@ -22,6 +23,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack{
             ScrollView{
+                
                 VStack(alignment: .leading, spacing:0){
                     makePaginatedTab()
                     
@@ -104,6 +106,12 @@ struct HomeView: View {
                 )
             }
         }
+        .toast(isPresenting: $viewModel.showErrorMessage, alert: {
+            AlertToast(type: .regular, title: " (!) An error ocurred")
+        })
+        .toast(isPresenting: $viewModel.isLoading, alert: {
+            AlertToast(displayMode: .alert, type: .loading)
+        })
         .frame(height:300)
         .tabViewStyle(PageTabViewStyle())
     }

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import AlertToast
 struct ComicDetailView: View {
     @EnvironmentObject var coordinator: Coordinator
     @StateObject private var viewModel: ComicDetailViewModel
@@ -91,6 +91,12 @@ struct ComicDetailView: View {
                         }
                     }
                     .background(.marvelSecondary.opacity(0.5))
+                    .toast(isPresenting: $viewModel.showErrorMessage, alert: {
+                        AlertToast(type: .regular, title: " (!) An error ocurred")
+                    })
+                    .toast(isPresenting: $viewModel.isLoading, alert: {
+                        AlertToast(displayMode: .alert, type: .loading)
+                    })
 
                 }
             }
@@ -104,7 +110,7 @@ struct ComicDetailView: View {
             title: { Text(text)
                     .foregroundColor(.white)
                     .fontWeight(.bold) },
-            icon: { Image(systemName: systemNameImage).tint(.white) }
+            icon: { Image(systemName: systemNameImage).foregroundStyle(.white) }
         )
     }
 }

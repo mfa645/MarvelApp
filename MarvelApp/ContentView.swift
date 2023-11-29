@@ -46,6 +46,6 @@ struct ContentView: View {
     }
 }
 #Preview {
-    let coordinator = Coordinator(mock: true)
+    let coordinator = Coordinator(mock: false)
     return ContentView().environmentObject(coordinator)
 }

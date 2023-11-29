@@ -11,7 +11,7 @@ import SwiftUI
 struct CharacterDetailView: View {
     @EnvironmentObject var coordinator: Coordinator
     @StateObject private var viewModel: CharacterDetailViewModel
-    @State private var showToast = false
+    @State private var showFavouriteOperation = false
 
     let character : Character
     init(viewModel: CharacterDetailViewModel, character: Character) {
@@ -64,7 +64,7 @@ struct CharacterDetailView: View {
                         
                         HeaderView(text: "COMICS")
                             .task{await viewModel.getComics(characterId: character.id)}
-                        
+
                         if(viewModel.comics.isEmpty){
                             Text("No comics availables for this character")
                                 .padding(20)
@@ -78,15 +78,14 @@ struct CharacterDetailView: View {
                                     coordinator.makeVerticalItem(title: comic.title, imageUrl: comic.imageUrl)}
                             )
                         }
-                        
+
                         HeaderView(text: "SERIES")
                             .task{await viewModel.getSeries(characterId: character.id)}
                         
                         if(viewModel.series.isEmpty){
                             Text("No series availables for this character")
                                 .padding(20)
-                        }
-                        else{
+                        } else{
                             coordinator.makeHorizontalItemsList(
                                 items: viewModel.series,
                                 navigationDestination: {serie in
@@ -99,8 +98,14 @@ struct CharacterDetailView: View {
                         
                         Spacer()
                     }
-                    .toast(isPresenting: $showToast){
-                        if(viewModel.isFavourite){
+                    .toast(isPresenting: $viewModel.showErrorMessage, alert: {
+                        AlertToast(type: .regular, title: " (!) An error ocurred")
+                    })
+                    .toast(isPresenting: $viewModel.isLoading, alert: {
+                        AlertToast(displayMode: .alert, type: .loading)
+                    })
+                    .toast(isPresenting: $showFavouriteOperation){
+                        if(!viewModel.isFavourite){
                             AlertToast(type: .regular, title: "Character removed from favourite list")
                         }
                         else{
@@ -118,7 +123,7 @@ struct CharacterDetailView: View {
             .toolbar(content: {
                 Button(
                     action: {
-                        showToast = true
+                        showFavouriteOperation = true
                         if(viewModel.isFavourite){
                             viewModel.removeFromFavourites(characterId: character.id)
 

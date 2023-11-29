@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct SerieDetailView: View {
     @EnvironmentObject var coordinator: Coordinator
@@ -55,10 +56,10 @@ struct SerieDetailView: View {
                         
                         VStack(alignment: .center, spacing:0){
                             makeEspecificationTitle(text: "TYPE")
-                            makeEspecificationBody(text: serie.type)
+                            makeEspecificationBody(text: serie.type.isEmpty ? "NA" : serie.type)
 
                             makeEspecificationTitle(text: "RATING")
-                            makeEspecificationBody(text: serie.rating)
+                            makeEspecificationBody(text: serie.rating.isEmpty ? "NA" : serie.rating)
 
                         }
                         Spacer()
@@ -109,6 +110,12 @@ struct SerieDetailView: View {
                     
                 }
                 .background(.marvelTertiary.opacity(0.4))
+                .toast(isPresenting: $viewModel.showErrorMessage, alert: {
+                    AlertToast(type: .regular, title: " (!) An error ocurred")
+                })
+                .toast(isPresenting: $viewModel.isLoading, alert: {
+                    AlertToast(displayMode: .alert, type: .loading)
+                })
             }
             .ignoresSafeArea(edges: .top)
             .ignoresSafeArea(edges: .horizontal)

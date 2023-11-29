@@ -67,10 +67,12 @@ struct CustomCarousel<Content: View, Destination:View, Item> : View where Item: 
                         .onChanged{onChanged(value: $0, cardWidth: cardWidth)}
                         .onEnded{onEnded(value: $0, cardWidth: cardWidth)}
                 )
-                .onAppear{ //TODO: CALCULAR PARA QUE SALGA EN EL INDEX CORRECTO
-                    let extraSpace = (cardPadding / 2) - spacing
-                    offset = -(size.width + cardPadding * CGFloat(integerLiteral: index + 1)) + extraSpace
-                    lastStoredOffset = offset
+                .onAppear{
+                    if index == 0{
+                        let extraSpace = (cardPadding / 2) - spacing
+                        offset = extraSpace
+                        lastStoredOffset = extraSpace
+                    }
                 }
                 
             }

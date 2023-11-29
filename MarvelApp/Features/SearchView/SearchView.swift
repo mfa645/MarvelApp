@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct SearchView: View {
     @EnvironmentObject var coordinator: Coordinator
@@ -47,6 +48,9 @@ struct SearchView: View {
                     }
                 }
                 .background(.marvelSecondary)
+                .toast(isPresenting: $viewModel.showErrorMessage, alert: {
+                    AlertToast(type: .regular, title: " (!) An error ocurred")
+                })
             }
             .onChange(of: textObserver.debouncedText, initial: true){
                 fetchItems()
