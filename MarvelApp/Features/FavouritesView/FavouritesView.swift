@@ -43,29 +43,59 @@ struct FavouritesView: View {
     var body: some View {
         NavigationStack{
             VStack{
-                if(!characters.isEmpty){
-                    CustomCarousel(index: $currentIndex, items: characters,cardPadding: 150) { character, cardSize in
-                        AsyncImage(
-                            url: URL(string: character.imageUrl)
-                        ){image in
-                            image.image?.resizable()
-                                .scaledToFill()
-                                .frame(width:cardSize.width, height: cardSize.height)
-                                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                                .shadow(color: .marvelTertiary, radius: 10)//10:30
+                Text("Store your favourite characters here !")
+                    .bold()
+                    .font(.title3)
+                    .toolbar{
+                        ToolbarItem(placement: .principal) {
+                            Image("marvelLogo").resizable().renderingMode(.template).scaledToFit().scaleEffect(2).foregroundStyle(.marvelRed.opacity(0.7)).padding(.trailing)
                         }
                     }
-            } else {
-                Text("No favourite characters added yet !")
+                Spacer()
+                HStack{
+                    if(!characters.isEmpty){
+                        CustomCarousel(
+                            index: $currentIndex,
+                            items: characters,
+                            navigationDestination: { character in
+                                coordinator.makeCharacterDetailView(character: character)
+                            },
+                            cardPadding: 150) { character, cardSize in
+                            AsyncImage(
+                                url: URL(string: character.imageUrl)
+                            ){image in
+                                image.image?.resizable()
+                                    .scaledToFill()
+                                    .frame(width:cardSize.width, height: cardSize.height)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                                    .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous).stroke(.black.opacity(0.5), lineWidth: 5))
+                                    .shadow(color: .marvelTertiary, radius: 10)
+                            }
+                        }
+                    } else {
+                        Text("No favourite characters added yet !")
+                    }
+                }.frame(height: 500)
+                    .onAppear{
+                        viewModel.getCharacters()
+                    }
+                Spacer()
             }
-            }.frame(height: 500)
-        .onAppear{
-            viewModel.getCharacters()
+            .ignoresSafeArea()
+            .padding(.top)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background{
+                GeometryReader{ proxy in
+                    LinearGradient(colors: [.clear, .marvelSecondary,.marvelTertiary], startPoint: .top, endPoint: .bottom)
+                }
+                .ignoresSafeArea()
+
+            }
         }
     }
-}
 }
 
 #Preview {
     let coordinator = Coordinator(mock: true)
-    return coordinator.makeFavouritesView().environmentObject(coordinator)}
+    return coordinator.makeFavouritesView().environmentObject(coordinator)
+}

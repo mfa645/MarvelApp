@@ -33,7 +33,7 @@ struct ContentView: View {
                 .tabItem{
                     Label("SEARCH",systemImage: "magnifyingglass")
                 }
-            coordinator.makeSearchView()
+            coordinator.makeFavouritesView()
                 .tabItem{
                     Label(
                         title: { Text("FAVOURITES").bold() },

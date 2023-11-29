@@ -4,26 +4,29 @@
 //
 //  Created by user242581 on 28/11/23.
 //
-
+import AlertToast
 import SwiftUI
 
-struct CustomCarousel<Content: View, Item/*ID*/> : View where Item: RandomAccessCollection, Item.Element: Identifiable, Item.Element: Equatable /*ID: Equatable*/{
+struct CustomCarousel<Content: View, Destination:View, Item> : View where Item: RandomAccessCollection, Item.Element: Identifiable, Item.Element: Equatable, Item.Element : Hashable{
     var content: (Item.Element, CGSize) -> Content
-    //var id: KeyPath<Item.Element,ID>
     
     var spacing: CGFloat
     var cardPadding: CGFloat
+    let navigationDestination: (Item.Element) -> Destination
     var items: Item
     @Binding var index: Int
     
-    init(index: Binding<Int>,items: Item, spacing: CGFloat = 30,cardPadding: CGFloat = 80, /*id: KeyPath<Item.Element, ID>,*/ @ViewBuilder content: @escaping (Item.Element, CGSize) -> Content){
+    init(index: Binding<Int>,items: Item, @ViewBuilder navigationDestination: @escaping (Item.Element) -> Destination, spacing: CGFloat = 30,cardPadding: CGFloat = 80,  @ViewBuilder content: @escaping (Item.Element, CGSize) -> Content){
         self.content = content
-        //self.id = id
+        self.navigationDestination = navigationDestination
         self._index = index
         self.spacing = spacing
         self.cardPadding = cardPadding
         self.items = items
     }
+    @State private var navigateToDetail: Bool = false
+    @State private var navigationItem : Item.Element? = nil
+    
     @GestureState var translation: CGFloat = 0
     @State var offset: CGFloat = 0
     @State var lastStoredOffset : CGFloat = 0
@@ -31,37 +34,48 @@ struct CustomCarousel<Content: View, Item/*ID*/> : View where Item: RandomAccess
     @State var currentIndex: Int = 0
     @State var rotation: Double = 0
     var body: some View {
-        GeometryReader{proxy in
-            let size = proxy.size
-            let cardWidth = size.width - (cardPadding - spacing)
-            LazyHStack(spacing:spacing){
-                ForEach(items, id:\.id ){item in
-                    let index = indexOf(item: item)
-                    content(item, CGSize(width: size.width - cardPadding, height: size.height))
-                        .rotationEffect(.init(degrees: Double(index)*5), anchor: .bottom)
-                        .rotationEffect(.init(degrees: rotation), anchor: .bottom)
-                        .offset(y: offSetCardY(index: index, cardWidth: cardWidth))
-                        .frame(width: size.width - cardPadding, height: size.height)
-                        .contentShape(Rectangle())
+        NavigationStack{
+            GeometryReader{proxy in
+                let size = proxy.size
+                let cardWidth = size.width - (cardPadding - spacing)
+                LazyHStack(spacing:spacing){
+                    ForEach(items, id:\.id ){item in
+                        let index = indexOf(item: item)
+                        content(item, CGSize(width: size.width - cardPadding, height: size.height))
+                            .rotationEffect(.init(degrees: Double(index)*5), anchor: .bottom)
+                            .rotationEffect(.init(degrees: rotation), anchor: .bottom)
+                            .offset(y: offSetCardY(index: index, cardWidth: cardWidth))
+                            .frame(width: size.width - cardPadding, height: size.height)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                navigationItem = item
+                                self.index = indexOf(item: item)
+                            }
+                            .navigationDestination(item: $navigationItem) { navigationItem in
+                                navigationDestination(navigationItem)
+                            }
+                    }
+
                 }
+                .padding(.horizontal, spacing)
+                .offset(x:limitScroll())
+                .gesture(
+                    DragGesture(minimumDistance: 5)
+                        .updating($translation, body: {value, out, _ in
+                            out = value.translation.width
+                        })
+                        .onChanged{onChanged(value: $0, cardWidth: cardWidth)}
+                        .onEnded{onEnded(value: $0, cardWidth: cardWidth)}
+                )
+                .onAppear{ //TODO: CALCULAR PARA QUE SALGA EN EL INDEX CORRECTO
+                    let extraSpace = (cardPadding / 2) - spacing
+                    offset = -(size.width + cardPadding * CGFloat(integerLiteral: index + 1)) + extraSpace
+                    lastStoredOffset = offset
+                }
+                
             }
-            .padding(.horizontal, spacing)
-            .offset(x:limitScroll())
-            .gesture(
-                DragGesture(minimumDistance: 5)
-                    .updating($translation, body: {value, out, _ in
-                        out = value.translation.width
-                    })
-                    .onChanged{onChanged(value: $0, cardWidth: cardWidth)}
-                    .onEnded{onEnded(value: $0, cardWidth: cardWidth)}
-            )
-            
-        }.onAppear{
-            let extraSpace = (cardPadding / 2) - spacing
-            offset = extraSpace
-            lastStoredOffset = extraSpace
+            .animation(.easeInOut, value: translation == 0)
         }
-        .animation(.easeInOut, value: translation == 0)
     }
     func offSetCardY(index: Int, cardWidth: CGFloat)->CGFloat{
         let progress = ((translation < 0 ? translation : -translation) / cardWidth ) * 60
@@ -118,7 +132,9 @@ struct CustomCarousel<Content: View, Item/*ID*/> : View where Item: RandomAccess
 #Preview {
     @State var currentIndex = 0
     let coordinator = Coordinator(mock: true)
-    return CustomCarousel(index: $currentIndex, items: [Character.example]) { character, cardSize in
+    return CustomCarousel(index: $currentIndex, items: [Character.example], navigationDestination: { character in
+        coordinator.makeCharacterDetailView(character: character)
+    }) { character, cardSize in
         AsyncImage(
             url: URL(string: character.imageUrl)
         ){image in
