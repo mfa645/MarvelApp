@@ -20,7 +20,7 @@ struct Comic: Identifiable, Decodable{
         self.id = id
         self.title = title
         self.thumbnail = thumbnail
-
+        
         self.variantDescription = variantDescription
         self.description = description
         self.format = format
@@ -42,9 +42,4 @@ struct Comic: Identifiable, Decodable{
             pageCount: 72
         )
     }
-}
-
- struct Price: Codable {
-    let type: String
-    let price: Int
 }

@@ -45,7 +45,8 @@ struct CustomCarousel<Content: View, Destination:View, Item> : View where Item: 
                             .rotationEffect(.init(degrees: Double(index)*5), anchor: .bottom)
                             .rotationEffect(.init(degrees: rotation), anchor: .bottom)
                             .offset(y: offSetCardY(index: index, cardWidth: cardWidth))
-                            .frame(width: size.width - cardPadding, height: size.height)
+                            .frame(width: abs(size.width - cardPadding),
+                                   height: size.height)
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 navigationItem = item
@@ -53,7 +54,8 @@ struct CustomCarousel<Content: View, Destination:View, Item> : View where Item: 
                     }
 
 
-                }                    .navigationDestination(item: $navigationItem) { navigationItem in
+                }                    
+                .navigationDestination(item: $navigationItem) { navigationItem in
                     navigationDestination(navigationItem)
                 }
                 .padding(.horizontal, spacing)
@@ -67,10 +69,21 @@ struct CustomCarousel<Content: View, Destination:View, Item> : View where Item: 
                         .onEnded{onEnded(value: $0, cardWidth: cardWidth)}
                 )
                 .onAppear{
+                    print("offset")
+                    print(offset)
+                    print("index")
+                    print(index)
+                    print(lastStoredOffset)
+                    print(cardWidth)
+                    let extraSpace = (cardPadding / 2) - spacing
+                    print(extraSpace)
+                    print(cardPadding)
                     if index == 0{
-                        let extraSpace = (cardPadding / 2) - spacing
                         offset = extraSpace
                         lastStoredOffset = extraSpace
+                    }
+                    if index == items.count{
+                        offset = CGFloat(45 - 273*(index-1))
                     }
                 }
                 
@@ -101,6 +114,8 @@ struct CustomCarousel<Content: View, Destination:View, Item> : View where Item: 
         if index == 0 && offset > extraSpace{
             return extraSpace + (offset / 4)
         }else if index == items.count - 1 && translation < 0{
+            print("REAL OFFSET")
+            print(offset)
             return offset - (translation/2)
         }else{
             return offset
